@@ -1,63 +1,210 @@
-# IP 204.12.192.220 был убран, т.к на него начали прилетать отклонения соединений(не ресеты) из-за чего стало практически невозможно попасть на ресурсы, на которых он был закреплен
+# Взято с - https://lolz.live/threads/7884871/
 
-50.7.85.220 www.tiktokw.us
-50.7.85.220 www.tiktok.com
-50.7.85.220 webcast.tiktok.com
-50.7.85.220 v16-webapp-prime.tiktok.com
-50.7.85.220 t.tiktok.com
-50.7.85.220 p16-sg.tiktokcdn.com
-50.7.85.220 p16-pu-sign-useast8.tiktokcdn-us.com
-50.7.85.220 p16-common-sign-useastred.tiktokcdn-eu.com
-50.7.85.220 mssdk-sg.tiktok.com
-50.7.85.220 libraweb-sg.tiktok.com
-50.7.85.220 im-ws-sg.tiktok.com
-50.7.85.220 sf16-sg.tiktokcdn.com
-50.7.85.220 api.imgur.com
-50.7.85.220 assets.grok.com
-50.7.85.220 accounts.x.ai
-50.7.85.220 grok.com
-50.7.85.220 www2.deepl.com
-50.7.85.220 dict.deepl.com
-50.7.85.220 login-wall.deepl.com
-50.7.85.220 experimentation.deepl.com
-50.7.85.220 w.deepl.com
-50.7.85.220 s.deepl.com
-50.7.85.220 ita-free.www.deepl.com
-50.7.85.220 www.deepl.com
-50.7.85.220 deepl.com
-50.7.85.220 chatgpt.com
-50.7.85.220 ab.chatgpt.com
-50.7.85.220 auth.openai.com
-50.7.85.220 auth0.openai.com
-50.7.85.220 platform.openai.com
-50.7.85.220 cdn.oaistatic.com
-50.7.85.220 files.oaiusercontent.com
-50.7.85.220 cdn.auth0.com
-50.7.85.220 tcr9i.chat.openai.com
-50.7.85.220 webrtc.chatgpt.com
-50.7.85.220 android.chat.openai.com
-50.7.85.220 gemini.google.com
-50.7.85.220 aistudio.google.com
-50.7.85.220 generativelanguage.googleapis.com
-50.7.85.220 alkalimakersuite-pa.clients6.google.com
-50.7.85.220 copilot.microsoft.com
-50.7.85.220 sydney.bing.com
-50.7.85.220 edgeservices.bing.com
-50.7.85.220 claude.ai
-50.7.85.220 aitestkitchen.withgoogle.com
-50.7.85.220 aisandbox-pa.googleapis.com
-50.7.85.220 o.pki.goog
-50.7.85.220 labs.google
-50.7.85.220 notebooklm.google
-50.7.85.220 notebooklm.google.com
-204.12.192.222 gew1-spclient.spotify.com
-204.12.192.222 login5.spotify.com
-204.12.192.222 spotify.com
+### dns.malw.link: hosts file
+# Последнее обновление: 2 августа 2025
+# Дополнение к zapret:
+157.240.245.174 instagram.com
+157.240.245.174 www.instagram.com
+157.240.245.174 b.i.instagram.com
+157.240.245.174 z-p42-chat-e2ee-ig.facebook.com
+157.240.245.174 help.instagram.com
+3.66.189.153 protonmail.com
+3.66.189.153 mail.proton.me
+64.233.164.198 yt3.ggpht.com
+52.223.13.41 tracker.openbittorrent.com
+
+# ChatGPT, OpenAI:
+204.12.192.222 chatgpt.com
+204.12.192.222 ab.chatgpt.com
+204.12.192.222 auth.openai.com
+204.12.192.222 auth0.openai.com
+204.12.192.222 platform.openai.com
+204.12.192.222 tcr9i.chat.openai.com
+204.12.192.222 webrtc.chatgpt.com
+204.12.192.219 android.chat.openai.com
+204.12.192.222 api.openai.com
+204.12.192.221 operator.chatgpt.com
+204.12.192.222 sora.chatgpt.com
+204.12.192.222 sora.com
+204.12.192.222 sora.chatgpt.com
+204.12.192.222 videos.openai.com
+
+# Сервисы Google:
+204.12.192.222 gemini.google.com
+204.12.192.222 aistudio.google.com
+204.12.192.222 generativelanguage.googleapis.com
+204.12.192.222 aitestkitchen.withgoogle.com
+204.12.192.219 aisandbox-pa.googleapis.com
+204.12.192.222 webchannel-alkalimakersuite-pa.clients6.google.com
+204.12.192.221 alkalimakersuite-pa.clients6.google.com
+204.12.192.221 assistant-s3-pa.googleapis.com
+204.12.192.222 proactivebackend-pa.googleapis.com
+204.12.192.222 o.pki.goog
+204.12.192.222 labs.google
+204.12.192.222 notebooklm.google
+204.12.192.222 notebooklm.google.com
+204.12.192.222 jules.google.com
+204.12.192.222 stitch.withgoogle.com
+
+# Microsoft Copilot, Microsoft Rewards, Xbox, Xbox Cloud Gaming:
+204.12.192.222 copilot.microsoft.com
+204.12.192.222 sydney.bing.com
+204.12.192.222 edgeservices.bing.com
+204.12.192.221 rewards.bing.com
+204.12.192.222 xsts.auth.xboxlive.com
+204.12.192.222 xgpuwebf2p.gssv-play-prod.xboxlive.com
+204.12.192.222 xgpuweb.gssv-play-prod.xboxlive.com
+
+# Spotify:
 204.12.192.222 api.spotify.com
+204.12.192.222 xpui.app.spotify.com
 204.12.192.222 appresolve.spotify.com
-204.12.192.222 accounts.spotify.com
+204.12.192.222 login5.spotify.com
+204.12.192.222 login.app.spotify.com
+204.12.192.222 encore.scdn.co
+204.12.192.222 ap-gew1.spotify.com
+204.12.192.222 gew1-spclient.spotify.com
+204.12.192.222 spclient.wg.spotify.com
+204.12.192.222 api-partner.spotify.com
 204.12.192.222 aet.spotify.com
-204.12.192.222 open.spotify.com
-204.12.192.222 spotifycdn.com
 204.12.192.222 www.spotify.com
-204.12.192.222 spotifycdn.com
+204.12.192.222 accounts.spotify.com
+204.12.192.221 open.spotify.com
+
+# GitHub Copilot:
+50.7.87.84 api.github.com
+204.12.192.222 api.individual.githubcopilot.com
+204.12.192.222 proxy.individual.githubcopilot.com
+
+# JetBrains:
+50.7.85.221 datalore.jetbrains.com
+107.150.34.100 plugins.jetbrains.com
+204.12.192.222 download.jetbrains.com
+
+# ElevenLabs:
+204.12.192.222 elevenlabs.io
+204.12.192.222 api.us.elevenlabs.io
+204.12.192.222 elevenreader.io
+204.12.192.222 api.elevenlabs.io
+204.12.192.222 help.elevenlabs.io
+
+# Truth Social
+204.12.192.221 truthsocial.com
+204.12.192.221 static-assets-1.truthsocial.com
+
+# Grok
+204.12.192.222 grok.com
+204.12.192.222 accounts.x.ai
+204.12.192.222 assets.grok.com
+
+# Tidal
+204.12.192.222 api.tidal.com
+204.12.192.222 listen.tidal.com
+204.12.192.222 login.tidal.com
+204.12.192.222 auth.tidal.com
+204.12.192.222 link.tidal.com
+204.12.192.222 dd.tidal.com
+204.12.192.222 resources.tidal.com
+204.12.192.221 images.tidal.com
+204.12.192.222 fsu.fa.tidal.com
+204.12.192.222 geolocation.onetrust.com
+204.12.192.222 api.squareup.com
+204.12.192.222 api-global.squareup.com
+
+# Clash Royale, Clash of Clans, Brawl Stars
+3.160.212.81 cdn.id.supercell.com
+18.172.112.81 security.id.supercell.com
+45.95.233.23 accounts.supercell.com
+18.66.195.96 game-assets.clashroyaleapp.com
+51.158.190.98 game.clashroyaleapp.com
+3.162.38.39 game-assets.clashofclans.com
+70.34.251.56 gamea.clashofclans.com
+108.157.194.81 clashofclans.inbox.supercell.com
+179.43.168.109 game.brawlstarsgame.com
+18.239.69.129 game-assets.brawlstarsgame.com
+204.12.192.222 store.supercell.com
+
+# DeepL
+204.12.192.222 deepl.com
+204.12.192.222 www.deepl.com
+204.12.192.222 www2.deepl.com
+204.12.192.222 login-wall.deepl.com
+204.12.192.219 w.deepl.com
+204.12.192.222 s.deepl.com
+204.12.192.222 dict.deepl.com
+204.12.192.222 ita-free.www.deepl.com
+204.12.192.222 write-free.www.deepl.com
+204.12.192.222 experimentation.deepl.com
+
+# Deezer
+204.12.192.220 deezer.com
+204.12.192.220 www.deezer.com
+204.12.192.220 dzcdn.net
+204.12.192.220 payment.deezer.com
+
+# Weather.com
+204.12.192.220 weather.com
+204.12.192.220 upsx.weather.com
+
+# Guilded
+204.12.192.219 guilded.gg
+204.12.192.219 www.guilded.gg
+
+# Fitbit
+204.12.192.219 api.fitbit.com
+204.12.192.219 fitbit-pa.googleapis.com
+204.12.192.219 fitbitvestibuleshim-pa.googleapis.com
+204.12.192.219 fitbit.google.com
+
+# Другое:
+204.12.192.222 claude.ai
+204.12.192.220 console.anthropic.com
+204.12.192.222 www.notion.so
+50.7.85.222 www.canva.com
+204.12.192.222 www.intel.com
+204.12.192.219 www.dell.com
+50.7.85.219 www.tiktok.com # Только на сайте. Приложение определяет регион по оператору, а не по IP. Поэтому есть моды.
+142.54.189.106 web.archive.org # Блокирует от российских IP некоторые сайты
+204.12.192.220 developer.nvidia.com
+107.150.34.99 builds.parsec.app
+204.12.192.220 tria.ge
+204.12.192.220 api.imgur.com
+45.95.233.23 www.dyson.com
+45.95.233.23 www.dyson.fr
+45.95.233.23 usher.ttvnw.net
+64.188.98.242 api.manus.im
+185.246.223.127 4pda.to
+185.246.223.127 app.4pda.to
+185.246.223.127 s.4pda.to
+185.246.223.127 appbk.4pda.to
+
+# Блокировка реально плохих сайтов
+# Скримеры:
+0.0.0.0 only-fans.uk
+0.0.0.0 only-fans.me
+0.0.0.0 onlyfans.wtf
+# IP Logger'ы:
+0.0.0.0 iplogger.org
+0.0.0.0 wl.gl
+0.0.0.0 ed.tc
+0.0.0.0 bc.ax
+0.0.0.0 maper.info
+0.0.0.0 2no.co
+0.0.0.0 yip.su
+0.0.0.0 iplis.ru
+0.0.0.0 ezstat.ru
+0.0.0.0 iplog.co
+0.0.0.0 grabify.org
+# Мусор/реклама:
+0.0.0.0 log16-platform-ycru.tiktokv.com
+0.0.0.0 adfox.yandex.ru
+0.0.0.0 adfstat.yandex.ru
+0.0.0.0 ads-api.tiktok.com
+0.0.0.0 ads-api.twitter.com
+0.0.0.0 ads-dev.pinterest.com
+0.0.0.0 ads-sg.tiktok.com
+0.0.0.0 an.yandex.ru
+0.0.0.0 appmetrica.yandex.ru
+0.0.0.0 mc.yandex.ru
+0.0.0.0 amc.yandex.ru
+### dns.malw.link: end hosts file
