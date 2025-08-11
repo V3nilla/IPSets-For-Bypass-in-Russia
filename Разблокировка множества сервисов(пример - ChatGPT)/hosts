@@ -10,7 +10,6 @@
 157.240.245.174 help.instagram.com
 3.66.189.153 protonmail.com
 3.66.189.153 mail.proton.me
-64.233.164.198 yt3.ggpht.com
 52.223.13.41 tracker.openbittorrent.com
 
 # ChatGPT, OpenAI:
@@ -208,3 +207,4 @@
 0.0.0.0 mc.yandex.ru
 0.0.0.0 amc.yandex.ru
 ### dns.malw.link: end hosts file
+
