@@ -4,19 +4,9 @@
 # Последнее обновление: 2 августа 2025
 
 # Немного про инсту - да, снова костыль, но хотя-бы быстро работает. А вообще можно банально вхуярить перенаправление IP в роутер если он прошит, и тогда инста будет доступна не только на одном компе - 
-# iptables -t nat -A PREROUTING -d 31.13.72.174 -j DNAT --to-destination 31.13.72.36
+# iptables -t nat -A PREROUTING -d 31.13.72.174 -j DNAT --to-destination 31.13.72.172
 
-31.13.72.36 instagram.com
-31.13.72.36 www.instagram.com
-31.13.72.36 cdn.instagram.com
-31.13.72.36 static.cdninstagram.com
-31.13.72.36 scontent-arn2-1.cdninstagram.com
-31.13.72.36 api.instagram.com
-31.13.72.36 b.i.instagram.com
-31.13.72.36 z-p42-chat-e2ee-ig.facebook.com
-31.13.72.36 help.instagram.com
-31.13.72.36 fna.fbcdn.net
-31.13.72.36 i.instagram.com
+31.13.72.172 www.instagram.com
 3.66.189.153 protonmail.com
 3.66.189.153 mail.proton.me
 52.223.13.41 tracker.openbittorrent.com
@@ -216,6 +206,7 @@
 0.0.0.0 mc.yandex.ru
 0.0.0.0 amc.yandex.ru
 ### dns.malw.link: end hosts file
+
 
 
 
