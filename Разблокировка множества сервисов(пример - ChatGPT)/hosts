@@ -2,7 +2,10 @@
 
 ### dns.malw.link: hosts file
 # Последнее обновление: 2 августа 2025
-# Дополнение к zapret:
+
+# Немного про инсту - да, снова костыль, но хотя-бы быстро работает. А вообще можно банально вхуярить перенаправление IP в роутер если он прошит, и тогда инста будет доступна не только на одном компе - 
+# iptables -t nat -A PREROUTING -d 31.13.72.174 -j DNAT --to-destination 31.13.72.36
+
 31.13.72.36 instagram.com
 31.13.72.36 www.instagram.com
 31.13.72.36 cdn.instagram.com
@@ -213,5 +216,6 @@
 0.0.0.0 mc.yandex.ru
 0.0.0.0 amc.yandex.ru
 ### dns.malw.link: end hosts file
+
 
 
