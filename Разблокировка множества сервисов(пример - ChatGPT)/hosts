@@ -3,11 +3,17 @@
 ### dns.malw.link: hosts file
 # Последнее обновление: 2 августа 2025
 # Дополнение к zapret:
-157.240.245.174 instagram.com
-157.240.245.174 www.instagram.com
-157.240.245.174 b.i.instagram.com
-157.240.245.174 z-p42-chat-e2ee-ig.facebook.com
-157.240.245.174 help.instagram.com
+31.13.72.36 instagram.com
+31.13.72.36 www.instagram.com
+31.13.72.36 cdn.instagram.com
+31.13.72.36 static.cdninstagram.com
+31.13.72.36 scontent-arn2-1.cdninstagram.com
+31.13.72.36 api.instagram.com
+31.13.72.36 b.i.instagram.com
+31.13.72.36 z-p42-chat-e2ee-ig.facebook.com
+31.13.72.36 help.instagram.com
+31.13.72.36 fna.fbcdn.net
+31.13.72.36 i.instagram.com
 3.66.189.153 protonmail.com
 3.66.189.153 mail.proton.me
 52.223.13.41 tracker.openbittorrent.com
@@ -207,4 +213,5 @@
 0.0.0.0 mc.yandex.ru
 0.0.0.0 amc.yandex.ru
 ### dns.malw.link: end hosts file
+
 
