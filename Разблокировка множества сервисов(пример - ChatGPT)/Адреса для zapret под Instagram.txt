@@ -1,0 +1,7 @@
+# Скопировать в list-general.txt
+
+www.instagram.com
+instagram.com
+cdninstagram.com
+facebook.com
+fbcdn.net
