@@ -175,12 +175,6 @@
 185.246.223.127 auth.anthropic.com
 185.246.223.127 api.anthropic.com
 
-#4PDA
-185.246.223.127 4pda.to
-185.246.223.127 app.4pda.to
-185.246.223.127 s.4pda.to
-185.246.223.127 appbk.4pda.to
-
 # Другое:
 204.12.192.222 www.notion.so
 50.7.85.222 www.canva.com
@@ -229,3 +223,4 @@
 0.0.0.0 mc.yandex.ru
 0.0.0.0 amc.yandex.ru
 ### dns.malw.link: end hosts file
+
