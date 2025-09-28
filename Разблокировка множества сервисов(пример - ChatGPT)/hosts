@@ -1,7 +1,7 @@
 # Взято с - https://lolz.live/threads/7884871/
 
 ### dns.malw.link: hosts file
-# Последнее обновление: 2 августа 2025
+# Последнее обновление: 29 сентября 2025
 
 # Немного про инсту - да, снова костыль, но хотя-бы быстро работает. А вообще можно банально вхуярить перенаправление IP в роутер если он прошит, и тогда инста будет доступна не только на одном компе - 
 # iptables -t nat -A PREROUTING -d 31.13.72.174 -j DNAT --to-destination 31.13.72.172
@@ -10,6 +10,9 @@
 3.66.189.153 protonmail.com
 3.66.189.153 mail.proton.me
 52.223.13.41 tracker.openbittorrent.com
+130.255.77.28 ntc.party
+172.64.33.155 rutor.info
+173.245.59.155 rutor.is
 
 # ChatGPT, OpenAI:
 204.12.192.222 chatgpt.com
@@ -17,6 +20,9 @@
 204.12.192.222 auth.openai.com
 204.12.192.222 auth0.openai.com
 204.12.192.222 platform.openai.com
+204.12.192.222 cdn.oaistatic.com
+204.12.192.222 files.oaiusercontent.com
+204.12.192.222 cdn.auth0.com
 204.12.192.222 tcr9i.chat.openai.com
 204.12.192.222 webrtc.chatgpt.com
 204.12.192.219 android.chat.openai.com
@@ -24,7 +30,6 @@
 204.12.192.221 operator.chatgpt.com
 204.12.192.222 sora.chatgpt.com
 204.12.192.222 sora.com
-204.12.192.222 sora.chatgpt.com
 204.12.192.222 videos.openai.com
 
 # Сервисы Google:
@@ -114,7 +119,7 @@
 18.172.112.81 security.id.supercell.com
 45.95.233.23 accounts.supercell.com
 18.66.195.96 game-assets.clashroyaleapp.com
-51.158.190.98 game.clashroyaleapp.com
+179.43.148.190 game.clashroyaleapp.com
 3.162.38.39 game-assets.clashofclans.com
 70.34.251.56 gamea.clashofclans.com
 108.157.194.81 clashofclans.inbox.supercell.com
@@ -133,6 +138,16 @@
 204.12.192.222 ita-free.www.deepl.com
 204.12.192.222 write-free.www.deepl.com
 204.12.192.222 experimentation.deepl.com
+204.12.192.222 experimentation-grpc.deepl.com
+204.12.192.222 ita-free.app.deepl.com
+204.12.192.222 shield.deepl.com
+204.12.192.222 ott.deepl.com
+204.12.192.222 api-free.deepl.com
+204.12.192.222 backend.deepl.com
+204.12.192.222 clearance.deepl.com
+204.12.192.222 errortracking.deepl.com
+204.12.192.222 auth.deepl.com
+204.12.192.222 oneshot-free.www.deepl.com
 
 # Deezer
 204.12.192.220 deezer.com
@@ -154,9 +169,19 @@
 204.12.192.219 fitbitvestibuleshim-pa.googleapis.com
 204.12.192.219 fitbit.google.com
 
-# Другое:
+# Claude
 204.12.192.222 claude.ai
-204.12.192.220 console.anthropic.com
+185.246.223.127 console.anthropic.com
+185.246.223.127 auth.anthropic.com
+185.246.223.127 api.anthropic.com
+
+#4PDA
+185.246.223.127 4pda.to
+185.246.223.127 app.4pda.to
+185.246.223.127 s.4pda.to
+185.246.223.127 appbk.4pda.to
+
+# Другое:
 204.12.192.222 www.notion.so
 50.7.85.222 www.canva.com
 204.12.192.222 www.intel.com
@@ -171,10 +196,8 @@
 45.95.233.23 www.dyson.fr
 45.95.233.23 usher.ttvnw.net
 64.188.98.242 api.manus.im
-185.246.223.127 4pda.to
-185.246.223.127 app.4pda.to
-185.246.223.127 s.4pda.to
-185.246.223.127 appbk.4pda.to
+185.246.223.127 profile.broadcom.com
+45.95.233.23 test.dns.malw.link
 
 # Блокировка реально плохих сайтов
 # Скримеры:
@@ -206,7 +229,3 @@
 0.0.0.0 mc.yandex.ru
 0.0.0.0 amc.yandex.ru
 ### dns.malw.link: end hosts file
-
-
-
-
