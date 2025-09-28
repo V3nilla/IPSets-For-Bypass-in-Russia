@@ -1,0 +1,5 @@
+## Тут только инста с рутором...
+
+iptables -t nat -A PREROUTING -d 31.13.72.174 -j DNAT --to-destination 31.13.72.172
+iptables -t nat -A PREROUTING -d 193.46.255.29 -j DNAT --to-destination 172.64.33.155
+iptables -t nat -A PREROUTING -d 193.46.255.26 -j DNAT --to-destination 173.245.59.155
