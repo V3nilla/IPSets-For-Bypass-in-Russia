@@ -12,6 +12,7 @@
 52.223.13.41 tracker.openbittorrent.com
 130.255.77.28 ntc.party
 172.64.33.155 rutor.info
+172.64.33.155 d.rutor.info
 173.245.59.155 rutor.is
 185.87.51.182 controlplane.tailscale.com
 
@@ -235,5 +236,6 @@
 0.0.0.0 mc.yandex.ru
 0.0.0.0 amc.yandex.ru
 ### dns.malw.link: end hosts file
+
 
 
