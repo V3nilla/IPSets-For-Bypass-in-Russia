@@ -1,5 +1,7 @@
 Если хотите меня поддержать донатом) - https://www.donationalerts.com/r/aanxi3tyy
 
+---------------------
+
 Список IP которые стали недоступны 10.06.2025-xx.xx.2025, среди них - Amazon CDN, Amazon Cloudfront, Cloudflare, BunnyCDN, OVH SAS и прочие.
 
 Все они брались с - https://stat.ripe.net/
