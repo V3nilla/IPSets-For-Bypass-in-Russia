@@ -59,13 +59,12 @@ v4_sorted = sorted(v4_agg, key=sort_key)
 v6_sorted = sorted(v6_agg, key=sort_key)
 
 with open("all_prefixes_aggregated.txt", "w", encoding="utf-8") as f:
-    f.write("# === IPv4 prefixes (aggregated) ===\n")
     for net in v4_sorted:
         f.write(str(net) + "\n")
-    f.write("\n# === IPv6 prefixes (aggregated) ===\n")
     for net in v6_sorted:
         f.write(str(net) + "\n")
 
 print("\nГотово!")
 print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
 print("Файл сохранён как all_prefixes_aggregated.txt")
+
