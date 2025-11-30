@@ -15,6 +15,7 @@ ASN_LIST = {
     "Cloudflare": "AS13335",
     "Oracle": "AS31898",
     "Amazon": "AS16509",
+    "G-Core": "AS199524",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
