@@ -16,6 +16,7 @@ ASN_LIST = {
     "Oracle": "AS31898",
     "Amazon": "AS16509",
     "G-Core": "AS199524",
+    "Roblox": "AS22697",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
@@ -67,4 +68,5 @@ with open("all_prefixes_aggregated.txt", "w", encoding="utf-8") as f:
 print("\nГотово!")
 print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
 print("Файл сохранён как all_prefixes_aggregated.txt")
+
 
