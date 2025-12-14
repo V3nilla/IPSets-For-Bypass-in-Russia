@@ -17,6 +17,8 @@ ASN_LIST = {
     "Amazon": "AS16509",
     "G-Core": "AS199524",
     "Roblox": "AS22697",
+    "Fellowship": "AS46461",
+    "Fastly": "AS54113",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
