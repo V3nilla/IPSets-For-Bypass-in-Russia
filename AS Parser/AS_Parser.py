@@ -19,6 +19,9 @@ ASN_LIST = {
     "Roblox": "AS22697",
     "Fellowship": "AS46461",
     "Fastly": "AS54113",
+    "Telegram Messenger - Europe": "AS62041",
+    "Telegram Messenger CDN": "AS44907",
+    "Scaleway": "AS12876",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
