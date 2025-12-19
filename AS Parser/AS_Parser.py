@@ -10,7 +10,6 @@ ASN_LIST = {
     "Hetzner 3": "AS212317",
     "Akamai": "AS20940",
     "Akamai 2": "AS16625",
-    "Akamai 3": "AS16702",
     "DigitalOcean": "AS14061",
     "Datacamp": "AS60068",
     "Contabo": "AS51167",
@@ -77,4 +76,5 @@ with open("all_prefixes_aggregated.txt", "w", encoding="utf-8") as f:
 print("\nГотово!")
 print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
 print("Файл сохранён как all_prefixes_aggregated.txt")
+
 
