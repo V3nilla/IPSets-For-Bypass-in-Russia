@@ -1,4 +1,5 @@
 # Скопировать в list-general.txt
+# Если Инстаграм все еще не работает, то нужно в настройках DNS указать 1.1.1.1 и в cmd выполнить команду ipconfig /flushdns
 
 instagram.com
 cdninstagram.com
