@@ -32,10 +32,10 @@ CIDR Manager - автоматически отыщет дубликаты CIDR �
 
 ## Star History
 
-<a href="https://www.star-history.com/#mudachyo/IP-Ranger&V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left">
+<a href="https://www.star-history.com/#V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=mudachyo/IP-Ranger,V3nilla/IPSets-For-Bypass-in-Russia&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=mudachyo/IP-Ranger,V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=mudachyo/IP-Ranger,V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left" />
  </picture>
 </a>
