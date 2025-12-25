@@ -32,8 +32,6 @@ ASN_LIST = {
     "GoDaddy": "AS26496",
     "HostGator, BlueHost": "AS46606",
     "Valve": "AS32590",
-    "GameServerKings": "AS26863",
-    "ServerEasy": "AS60798",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
