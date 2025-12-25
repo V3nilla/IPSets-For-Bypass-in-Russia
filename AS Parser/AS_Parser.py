@@ -31,6 +31,7 @@ ASN_LIST = {
     "DreamHost": "AS29873",
     "GoDaddy": "AS26496",
     "HostGator, BlueHost": "AS46606",
+    "Valve": "AS32590",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
