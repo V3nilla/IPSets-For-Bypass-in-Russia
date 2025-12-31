@@ -30,6 +30,8 @@ CIDR Manager - автоматически отыщет дубликаты CIDR �
 
 Помогите поддержать проект звездочкой, поставьте ⭐ на этот репозиторий!
 
+## Star History
+
 <a href="https://www.star-history.com/#V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left">
  <picture>
    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&theme=dark&legend=top-left" />
