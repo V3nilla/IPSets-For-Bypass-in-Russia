@@ -33,6 +33,7 @@ ASN_LIST = {
     "HostGator, BlueHost": "AS46606",
     "Valve": "AS32590",
     "Cogent": "AS174",
+    "Riot Games, Inc": "AS6507",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
@@ -61,6 +62,8 @@ for name, asn in ASN_LIST.items():
                 net = ipaddress.ip_network(prefix, strict=False)
                 if net.prefixlen == 0:
                     continue
+                if not net.is_global:
+                    continue
                 if net.version == 4:
                     v4_all.add(net)
                 else:
@@ -88,7 +91,7 @@ def sort_key(n):
 v4_sorted = sorted(v4_agg, key=sort_key)
 v6_sorted = sorted(v6_agg, key=sort_key)
 
-with open("all_prefixes_aggregated.txt", "w", encoding="utf-8") as f:
+with open("ipset-all.txt", "w", encoding="utf-8") as f:
     for net in v4_sorted:
         f.write(str(net) + "\n")
     for net in v6_sorted:
@@ -96,4 +99,4 @@ with open("all_prefixes_aggregated.txt", "w", encoding="utf-8") as f:
 
 print("\nГотово!")
 print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
-print("Файл сохранён как all_prefixes_aggregated.txt")
+print("Файл сохранён как ipset-all.txt")
