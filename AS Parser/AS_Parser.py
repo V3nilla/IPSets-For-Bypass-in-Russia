@@ -34,6 +34,7 @@ ASN_LIST = {
     "Valve": "AS32590",
     "Cogent": "AS174",
     "Riot Games, Inc": "AS6507",
+    "Linode": "AS63949",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
