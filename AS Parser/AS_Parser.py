@@ -35,6 +35,7 @@ ASN_LIST = {
     "Cogent": "AS174",
     "Riot Games, Inc": "AS6507",
     "Linode": "AS63949",
+    "I3DNET": "AS49544",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
@@ -100,4 +101,5 @@ with open("ipset-all.txt", "w", encoding="utf-8") as f:
 
 print("\nГотово!")
 print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
+
 print("Файл сохранён как ipset-all.txt")
