@@ -6,6 +6,45 @@
 # Немного про инсту - да, снова костыль, но хотя-бы быстро работает. А вообще можно банально вхуярить перенаправление IP в роутер если он прошит, и тогда инста будет доступна не только на одном компе - 
 # iptables -t nat -A PREROUTING -d 31.13.72.174 -j DNAT --to-destination 31.13.72.172
 
+# Telegram Web
+149.154.167.220 telegram.me
+149.154.167.220 telegram.dog
+149.154.167.220 telegram.space
+149.154.167.220 telesco.pe
+149.154.167.220 tg.dev
+149.154.167.220 kws2.web.telegram.org
+149.154.167.220 kws2-1.web.telegram.org
+149.154.167.220 kws1-1.web.telegram.org
+149.154.167.220 kws1.web.telegram.org
+149.154.167.220 telegram.org
+149.154.167.220 t.me
+149.154.167.220 telegram.me
+149.154.167.220 tg.dev
+149.154.167.220 telesco.pe
+149.154.167.220 api.telegram.org
+149.154.167.220 pluto.web.telegram.org
+149.154.167.220 pluto-1.web.telegram.org
+149.154.167.220 flora.web.telegram.org
+149.154.167.220 td.telegram.org
+149.154.167.220 venus.web.telegram.org
+149.154.167.220 web.telegram.org
+149.154.167.220 kws1-1.web.telegram.org
+149.154.167.220 kws1.web.telegram.org
+149.154.167.220 kws2-1.web.telegram.org
+149.154.167.220 kws2.web.telegram.org
+149.154.167.220 kws4-1.web.telegram.org
+149.154.167.220 kws4.web.telegram.org
+149.154.167.220 kws5-1.web.telegram.org
+149.154.167.220 kws5.web.telegram.org
+149.154.167.220 zws1-1.web.telegram.org
+149.154.167.220 zws1.web.telegram.org
+149.154.167.220 zws2-1.web.telegram.org
+149.154.167.220 zws2.web.telegram.org
+149.154.167.220 zws4-1.web.telegram.org
+149.154.167.220 zws5-1.web.telegram.org
+149.154.167.220 zws5.web.telegram.org
+
+# Other
 31.13.72.172 www.instagram.com
 52.223.13.41 tracker.openbittorrent.com
 185.31.40.18 test.dns.malw.link
@@ -46137,5 +46176,6 @@
 0.0.0.0 zz.cqcounter.com
 0.0.0.0 zz3r0.com
 0.0.0.0 zyvexor-rise-ai-soft.com
+
 
 
