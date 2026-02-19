@@ -31,7 +31,6 @@ ASN_LIST = {
     "DreamHost": "AS29873",
     "GoDaddy": "AS26496",
     "HostGator, BlueHost": "AS46606",
-    "Valve": "AS32590",
     "Cogent": "AS174",
     "Riot Games, Inc": "AS6507",
     "Linode": "AS63949",
@@ -103,3 +102,4 @@ print("\nГотово!")
 print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
 
 print("Файл сохранён как ipset-all.txt")
+
