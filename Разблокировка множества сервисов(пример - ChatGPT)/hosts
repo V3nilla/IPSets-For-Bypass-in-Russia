@@ -12,72 +12,137 @@
 149.154.167.220 telegram.space
 149.154.167.220 telesco.pe
 149.154.167.220 tg.dev
-149.154.167.220 kws2.web.telegram.org
-149.154.167.220 kws2-1.web.telegram.org
-149.154.167.220 kws1-1.web.telegram.org
-149.154.167.220 kws1.web.telegram.org
 149.154.167.220 telegram.org
 149.154.167.220 t.me
-149.154.167.220 telegram.me
-149.154.167.220 tg.dev
-149.154.167.220 telesco.pe
 149.154.167.220 api.telegram.org
+149.154.167.220 td.telegram.org
+149.154.167.220 web.telegram.org
+
 149.154.167.220 pluto.web.telegram.org
 149.154.167.220 pluto-1.web.telegram.org
 149.154.167.220 flora.web.telegram.org
-149.154.167.220 td.telegram.org
+149.154.167.220 flora-1.web.telegram.org
 149.154.167.220 venus.web.telegram.org
-149.154.167.220 web.telegram.org
-149.154.167.220 kws1-1.web.telegram.org
-149.154.167.220 kws1.web.telegram.org
-149.154.167.220 kws2-1.web.telegram.org
-149.154.167.220 kws2.web.telegram.org
-149.154.167.220 kws4-1.web.telegram.org
-149.154.167.220 kws4.web.telegram.org
-149.154.167.220 kws5-1.web.telegram.org
-149.154.167.220 kws5.web.telegram.org
-149.154.167.220 zws1-1.web.telegram.org
-149.154.167.220 zws1.web.telegram.org
-149.154.167.220 zws2-1.web.telegram.org
-149.154.167.220 zws2.web.telegram.org
-149.154.167.220 zws4-1.web.telegram.org
-149.154.167.220 zws5-1.web.telegram.org
-149.154.167.220 zws5.web.telegram.org
+149.154.167.220 venus-1.web.telegram.org
+149.154.167.220 vesta.web.telegram.org
+149.154.167.220 vesta-1.web.telegram.org
+149.154.167.220 aurora.web.telegram.org
+149.154.167.220 aurora-1.web.telegram.org
 
-# Other
-31.13.72.172 www.instagram.com
+149.154.167.220 kws1.web.telegram.org
+149.154.167.220 kws1-1.web.telegram.org
+149.154.167.220 kws2.web.telegram.org
+149.154.167.220 kws2-1.web.telegram.org
+149.154.167.220 kws4.web.telegram.org
+149.154.167.220 kws4-1.web.telegram.org
+149.154.167.220 kws5.web.telegram.org
+149.154.167.220 kws5-1.web.telegram.org
+
+149.154.167.220 zws1.web.telegram.org
+149.154.167.220 zws1-1.web.telegram.org
+149.154.167.220 zws2.web.telegram.org
+149.154.167.220 zws2-1.web.telegram.org
+149.154.167.220 zws4.web.telegram.org
+149.154.167.220 zws4-1.web.telegram.org
+149.154.167.220 zws5.web.telegram.org
+149.154.167.220 zws5-1.web.telegram.org
+
+
+# Other  (замены + добавления из первого)
+157.240.245.174 instagram.com
+157.240.245.174 www.instagram.com
+157.240.245.174 b.i.instagram.com
+157.240.245.174 z-p42-chat-e2ee-ig.facebook.com
+157.240.245.174 help.instagram.com
+
 52.223.13.41 tracker.openbittorrent.com
 185.31.40.18 test.dns.malw.link
 130.255.77.28 ntc.party
-185.87.51.182 controlplane.tailscale.com
-45.95.233.23 game.clashroyaleapp.com
-64.188.98.242 gamea.clashofclans.com
-185.246.223.127 game.brawlstarsgame.com
-108.61.167.26 game.squadbustersgame.com
-45.95.233.23 game.mocogame.com
+2a02:e00:ffec:4b8::1 ntc.party
+
+45.155.204.190 controlplane.tailscale.com
+95.182.120.241 controlplane.tailscale.com
+
+# rutor (полная замена/добавление из первого)
+172.64.32.155 rutor.info
+172.64.33.219 rutor.info
+173.245.58.155 rutor.info
+173.245.59.219 rutor.info
+
+172.64.32.155 rutor.is
+172.64.33.219 rutor.is
+173.245.58.155 rutor.is
+173.245.59.219 rutor.is
+
 172.64.33.155 d.rutor.info
-108.162.192.219 rutor.info
+172.64.33.155 d.rutor.is
 
-# OpenAI
-185.87.51.182 chatgpt.com
-185.87.51.182 ab.chatgpt.com
-185.87.51.182 auth.openai.com
-185.87.51.182 auth0.openai.com
-185.87.51.182 platform.openai.com
-185.87.51.182 cdn.oaistatic.com
-185.87.51.182 files.oaiusercontent.com
-103.27.157.38 cdn.auth0.com
-185.87.51.182 tcr9i.chat.openai.com
-185.87.51.182 webrtc.chatgpt.com
-185.87.51.182 android.chat.openai.com
-185.87.51.182 api.openai.com
-185.87.51.182 operator.chatgpt.com
-185.87.51.182 sora.chatgpt.com
-185.87.51.182 sora.com
-185.87.51.182 videos.openai.com
-185.87.51.182 ios.chat.openai.com
 
-# Google
+# OpenAI  (полная замена из первого для совпадающих хостов + добавления из первого)
+45.155.204.190 chatgpt.com
+95.182.120.241 chatgpt.com
+45.155.204.190 www.chatgpt.com
+95.182.120.241 www.chatgpt.com
+45.155.204.190 ab.chatgpt.com
+95.182.120.241 ab.chatgpt.com
+
+45.155.204.190 chat.openai.com
+95.182.120.241 chat.openai.com
+45.155.204.190 android.chat.openai.com
+95.182.120.241 android.chat.openai.com
+45.155.204.190 ios.chat.openai.com
+95.182.120.241 ios.chat.openai.com
+45.155.204.190 tcr9i.chat.openai.com
+95.182.120.241 tcr9i.chat.openai.com
+45.155.204.190 webrtc.chatgpt.com
+95.182.120.241 webrtc.chatgpt.com
+
+45.155.204.190 api.openai.com
+95.182.120.241 api.openai.com
+45.155.204.190 platform.openai.com
+95.182.120.241 platform.openai.com
+45.155.204.190 platform.api.openai.com
+95.182.120.241 platform.api.openai.com
+45.155.204.190 operator.chatgpt.com
+95.182.120.241 operator.chatgpt.com
+
+45.155.204.190 auth.openai.com
+95.182.120.241 auth.openai.com
+45.155.204.190 auth0.openai.com
+95.182.120.241 auth0.openai.com
+
+45.155.204.190 cdn.auth0.com
+95.182.120.241 cdn.auth0.com
+45.155.204.190 cdn.oaistatic.com
+95.182.120.241 cdn.oaistatic.com
+45.155.204.190 files.oaiusercontent.com
+95.182.120.241 files.oaiusercontent.com
+
+45.155.204.190 sora.chatgpt.com
+95.182.120.241 sora.chatgpt.com
+45.155.204.190 sora.com
+95.182.120.241 sora.com
+45.155.204.190 videos.openai.com
+95.182.120.241 videos.openai.com
+
+# (доп. из первого — часто нужное)
+45.155.204.190 openai.com
+95.182.120.241 openai.com
+45.155.204.190 www.openai.com
+95.182.120.241 www.openai.com
+45.155.204.190 help.openai.com
+95.182.120.241 help.openai.com
+45.155.204.190 community.openai.com
+95.182.120.241 community.openai.com
+45.155.204.190 blog.openai.com
+95.182.120.241 blog.openai.com
+45.155.204.190 cdn.openai.com
+95.182.120.241 cdn.openai.com
+45.155.204.190 oaistatic.com
+95.182.120.241 oaistatic.com
+
+
+# Google  (замены из первого)
 185.87.51.182 gemini.google.com
 185.87.51.182 aistudio.google.com
 185.87.51.182 generativelanguage.googleapis.com
@@ -94,56 +159,97 @@
 185.87.51.182 jules.google.com
 185.87.51.182 stitch.withgoogle.com
 
-# Microsoft
-185.87.51.182 copilot.microsoft.com
-185.87.51.182 sydney.bing.com
-185.87.51.182 edgeservices.bing.com
-185.87.51.182 rewards.bing.com
-185.87.51.182 xsts.auth.xboxlive.com
-185.87.51.182 xgpuwebf2p.gssv-play-prod.xboxlive.com
-185.87.51.182 xgpuweb.gssv-play-prod.xboxlive.com
 
-# Spotify
-185.87.51.182 api.spotify.com
-185.87.51.182 login5.spotify.com
-185.87.51.182 encore.scdn.co
-185.87.51.182 gew1-spclient.spotify.com
-185.87.51.182 spclient.wg.spotify.com
-185.87.51.182 api-partner.spotify.com
-185.87.51.182 aet.spotify.com
-185.87.51.182 www.spotify.com
-185.87.51.182 accounts.spotify.com
-185.87.51.182 open.spotify.com
-185.246.223.127 accounts.scdn.co
-185.87.51.182 gew1-dealer.spotify.com
-185.246.223.127 open-exp.spotifycdn.com
-185.246.223.127 www-growth.scdn.co
+# Microsoft  (замены из первого)
+45.155.204.190 copilot.microsoft.com
+95.182.120.241 copilot.microsoft.com
+45.155.204.190 sydney.bing.com
+95.182.120.241 sydney.bing.com
+45.155.204.190 edgeservices.bing.com
+95.182.120.241 edgeservices.bing.com
+45.155.204.190 rewards.bing.com
+95.182.120.241 rewards.bing.com
+45.155.204.190 xsts.auth.xboxlive.com
+95.182.120.241 xsts.auth.xboxlive.com
+45.155.204.190 xgpuwebf2p.gssv-play-prod.xboxlive.com
+95.182.120.241 xgpuwebf2p.gssv-play-prod.xboxlive.com
+45.155.204.190 xgpuweb.gssv-play-prod.xboxlive.com
+95.182.120.241 xgpuweb.gssv-play-prod.xboxlive.com
 
-# GitHub Copilot
+
+# Spotify  (замены из первого + добавления из первого)
+45.155.204.190 api.spotify.com
+95.182.120.241 api.spotify.com
+45.155.204.190 login5.spotify.com
+95.182.120.241 login5.spotify.com
+45.155.204.190 encore.scdn.co
+95.182.120.241 encore.scdn.co
+45.155.204.190 gew1-spclient.spotify.com
+95.182.120.241 gew1-spclient.spotify.com
+45.155.204.190 spclient.wg.spotify.com
+95.182.120.241 spclient.wg.spotify.com
+45.155.204.190 api-partner.spotify.com
+95.182.120.241 api-partner.spotify.com
+45.155.204.190 aet.spotify.com
+95.182.120.241 aet.spotify.com
+45.155.204.190 www.spotify.com
+95.182.120.241 www.spotify.com
+45.155.204.190 accounts.spotify.com
+95.182.120.241 accounts.spotify.com
+45.155.204.190 open.spotify.com
+95.182.120.241 open.spotify.com
+45.155.204.190 accounts.scdn.co
+95.182.120.241 accounts.scdn.co
+45.155.204.190 gew1-dealer.spotify.com
+95.182.120.241 gew1-dealer.spotify.com
+45.155.204.190 open-exp.spotifycdn.com
+95.182.120.241 open-exp.spotifycdn.com
+45.155.204.190 www-growth.scdn.co
+95.182.120.241 www-growth.scdn.co
+
+
+# GitHub Copilot (в первом нет — оставлено как было)
 144.31.14.104 api.github.com
 144.31.14.104 api.individual.githubcopilot.com
 144.31.14.104 proxy.individual.githubcopilot.com
 
-# JetBrains
-185.87.51.182 datalore.jetbrains.com
-185.87.51.182 plugins.jetbrains.com
-185.87.51.182 download.jetbrains.com
-185.87.51.182 api.jetbrains.ai
-185.87.51.182 account.jetbrains.com
 
-# ElevenLabs
-185.87.51.182 elevenlabs.io
-185.87.51.182 api.us.elevenlabs.io
-185.87.51.182 elevenreader.io
-185.87.51.182 api.elevenlabs.io
-185.87.51.182 help.elevenlabs.io
+# JetBrains  (замены из первого)
+45.155.204.190 datalore.jetbrains.com
+95.182.120.241 datalore.jetbrains.com
+45.155.204.190 plugins.jetbrains.com
+95.182.120.241 plugins.jetbrains.com
+45.155.204.190 download-cdn.jetbrains.com
+95.182.120.241 download-cdn.jetbrains.com
+45.155.204.190 api.jetbrains.ai
+95.182.120.241 api.jetbrains.ai
+45.155.204.190 account.jetbrains.com
+95.182.120.241 account.jetbrains.com
 
-# Grok
-185.87.51.182 grok.com
-185.87.51.182 accounts.x.ai
-185.87.51.182 assets.grok.com
 
-# Tidal
+# ElevenLabs  (замены из первого)
+45.155.204.190 elevenlabs.io
+95.182.120.241 elevenlabs.io
+45.155.204.190 api.us.elevenlabs.io
+95.182.120.241 api.us.elevenlabs.io
+45.155.204.190 elevenreader.io
+95.182.120.241 elevenreader.io
+45.155.204.190 api.elevenlabs.io
+95.182.120.241 api.elevenlabs.io
+45.155.204.190 help.elevenlabs.io
+95.182.120.241 help.elevenlabs.io
+
+
+# Grok  (замены из первого)
+45.155.204.190 grok.com
+95.182.120.241 grok.com
+45.155.204.190 accounts.x.ai
+95.182.120.241 accounts.x.ai
+45.155.204.190 assets.grok.com
+95.182.120.241 assets.grok.com
+
+
+# Tidal (в первом нет — оставлено как было)
 185.87.51.182 api.tidal.com
 185.87.51.182 listen.tidal.com
 185.87.51.182 login.tidal.com
@@ -153,162 +259,294 @@
 185.87.51.182 resources.tidal.com
 185.87.51.182 images.tidal.com
 185.87.51.182 fsu.fa.tidal.com
-185.87.51.182 geolocation.onetrust.com
-185.87.51.182 api.squareup.com
-185.87.51.182 api-global.squareup.com
 
-# Supercell
+# onetrust / squareup (замены из первого для совпадающих)
+45.155.204.190 geolocation.onetrust.com
+95.182.120.241 geolocation.onetrust.com
+45.155.204.190 api.squareup.com
+95.182.120.241 api.squareup.com
+45.155.204.190 api-global.squareup.com
+95.182.120.241 api-global.squareup.com
+
+
+# Supercell (замены из первого для совпадающих)
 144.31.14.104 cdn.id.supercell.com
 144.31.14.104 security.id.supercell.com
 144.31.14.104 accounts.supercell.com
-185.87.51.182 game-assets.clashroyaleapp.com
-185.87.51.182 game-assets.clashofclans.com
 144.31.14.104 clashofclans.inbox.supercell.com
 144.31.14.104 game-assets.brawlstarsgame.com
 144.31.14.104 store.supercell.com
 
-# DeepL
-185.87.51.182 deepl.com
-185.87.51.182 www.deepl.com
-185.87.51.182 www2.deepl.com
-185.87.51.182 login-wall.deepl.com
-185.87.51.182 w.deepl.com
-185.87.51.182 s.deepl.com
-185.87.51.182 dict.deepl.com
-185.87.51.182 ita-free.www.deepl.com
-185.87.51.182 write-free.www.deepl.com
-185.87.51.182 experimentation.deepl.com
-185.87.51.182 experimentation-grpc.deepl.com
-185.87.51.182 ita-free.app.deepl.com
-185.87.51.182 shield.deepl.com
-185.87.51.182 ott.deepl.com
-185.87.51.182 api-free.deepl.com
-185.87.51.182 backend.deepl.com
-185.87.51.182 clearance.deepl.com
-185.87.51.182 errortracking.deepl.com
-185.87.51.182 auth.deepl.com
-185.87.51.182 oneshot-free.www.deepl.com
-185.87.51.182 checkout.www.deepl.com
-185.87.51.182 gtm.deepl.com
+45.155.204.190 game-assets.clashroyaleapp.com
+95.182.120.241 game-assets.clashroyaleapp.com
+45.155.204.190 game-assets.clashofclans.com
+95.182.120.241 game-assets.clashofclans.com
 
-# Deezer
-185.87.51.182 deezer.com
-185.87.51.182 www.deezer.com
-185.87.51.182 payment.deezer.com
+# (домены игр — из первого)
+31.7.60.154 game.clashroyaleapp.com
+31.7.60.155 gamea.clashofclans.com
+179.43.148.133 game.brawlstarsgame.com
+31.7.60.156 game.squadbustersgame.com
+31.7.60.157 game.mocogame.com
 
-# Weather.com
-185.87.51.182 weather.com
-185.87.51.182 upsx.weather.com
 
-# Fitbit
-185.87.51.182 api.fitbit.com
-185.87.51.182 fitbit-pa.googleapis.com
-185.87.51.182 fitbitvestibuleshim-pa.googleapis.com
-185.87.51.182 fitbit.google.com
+# DeepL  (замены из первого)
+45.155.204.190 deepl.com
+95.182.120.241 deepl.com
+45.155.204.190 www.deepl.com
+95.182.120.241 www.deepl.com
+45.155.204.190 login-wall.deepl.com
+95.182.120.241 login-wall.deepl.com
+45.155.204.190 w.deepl.com
+95.182.120.241 w.deepl.com
+45.155.204.190 s.deepl.com
+95.182.120.241 s.deepl.com
+45.155.204.190 dict.deepl.com
+95.182.120.241 dict.deepl.com
+45.155.204.190 ita-free.www.deepl.com
+95.182.120.241 ita-free.www.deepl.com
+45.155.204.190 write-free.www.deepl.com
+95.182.120.241 write-free.www.deepl.com
+45.155.204.190 experimentation.deepl.com
+95.182.120.241 experimentation.deepl.com
+45.155.204.190 experimentation-grpc.deepl.com
+95.182.120.241 experimentation-grpc.deepl.com
+45.155.204.190 ita-free.app.deepl.com
+95.182.120.241 ita-free.app.deepl.com
+45.155.204.190 shield.deepl.com
+95.182.120.241 shield.deepl.com
+45.155.204.190 ott.deepl.com
+95.182.120.241 ott.deepl.com
+45.155.204.190 api-free.deepl.com
+95.182.120.241 api-free.deepl.com
+45.155.204.190 backend.deepl.com
+95.182.120.241 backend.deepl.com
+45.155.204.190 clearance.deepl.com
+95.182.120.241 clearance.deepl.com
+45.155.204.190 errortracking.deepl.com
+95.182.120.241 errortracking.deepl.com
+45.155.204.190 auth.deepl.com
+95.182.120.241 auth.deepl.com
+45.155.204.190 oneshot-free.www.deepl.com
+95.182.120.241 oneshot-free.www.deepl.com
+45.155.204.190 checkout.www.deepl.com
+95.182.120.241 checkout.www.deepl.com
+45.155.204.190 gtm.deepl.com
+95.182.120.241 gtm.deepl.com
 
-# Claude
-185.87.51.182 claude.ai
-185.87.51.182 console.anthropic.com
-185.87.51.182 api.anthropic.com
 
-# Trae.ai
-185.87.51.182 trae-api-sg.mchost.guru
-185.87.51.182 api.trae.ai
-185.87.51.182 api-sg-central.trae.ai
-185.87.51.182 api16-normal-alisg.mchost.guru
+# Deezer  (замены из первого)
+45.155.204.190 deezer.com
+95.182.120.241 deezer.com
+45.155.204.190 www.deezer.com
+95.182.120.241 www.deezer.com
+45.155.204.190 payment.deezer.com
+95.182.120.241 payment.deezer.com
 
-# Linear.app
-185.87.51.182 linear.app
-185.87.51.182 client-api.linear.app
-185.87.51.182 static.linear.app
-185.87.51.182 constellation.linear.app
-185.87.51.182 uploads.linear.app
-185.87.51.182 public.linear.app
-185.87.51.182 s.linear.app
 
-# Windsurf
-185.87.51.182 windsurf.com
-185.87.51.182 codeium.com
-185.87.51.182 server.codeium.com
-185.87.51.182 web-backend.codeium.com
-185.87.51.182 unleash.codeium.com
-185.87.51.182 inference.codeium.com
-185.87.51.182 windsurf-stable.codeium.com
-185.87.51.182 windsurf-telemetry.codeium.com
-185.87.51.182 marketplace.windsurf.com
+# Weather.com  (замены из первого)
+45.155.204.190 weather.com
+95.182.120.241 weather.com
+45.155.204.190 upsx.weather.com
+95.182.120.241 upsx.weather.com
 
-# Twitch
-185.87.51.182 usher.ttvnw.net
-185.87.51.182 gql.twitch.tv
 
-# Manus
-144.31.14.104 manus.im
-185.87.51.182 api.manus.im
+# Fitbit  (замены из первого)
+45.155.204.190 api.fitbit.com
+95.182.120.241 api.fitbit.com
+45.155.204.190 fitbit-pa.googleapis.com
+95.182.120.241 fitbit-pa.googleapis.com
+45.155.204.190 fitbitvestibuleshim-pa.googleapis.com
+95.182.120.241 fitbitvestibuleshim-pa.googleapis.com
+45.155.204.190 fitbit.google.com
+95.182.120.241 fitbit.google.com
 
-# Notion
-185.87.51.182 www.notion.so
-185.87.51.182 calendar.notion.so
 
-# Canva
-185.87.51.182 content-management-files.canva.com
-185.87.51.182 static.canva.com
+# Claude  (замены из первого для совпадающих)
+45.155.204.190 claude.ai
+95.182.120.241 claude.ai
+45.155.204.190 console.anthropic.com
+95.182.120.241 console.anthropic.com
+45.155.204.190 api.anthropic.com
+95.182.120.241 api.anthropic.com
 
-# Intel
-185.87.51.182 www.intel.com
 
-# Dell
-185.87.51.182 www.dell.com
+# Trae.ai  (замены из первого)
+45.155.204.190 trae-api-sg.mchost.guru
+95.182.120.241 trae-api-sg.mchost.guru
+45.155.204.190 api.trae.ai
+95.182.120.241 api.trae.ai
+45.155.204.190 api-sg-central.trae.ai
+95.182.120.241 api-sg-central.trae.ai
+45.155.204.190 api16-normal-alisg.mchost.guru
+95.182.120.241 api16-normal-alisg.mchost.guru
 
-# TikTok
+
+# Linear.app  (замены из первого)
+45.155.204.190 linear.app
+95.182.120.241 linear.app
+45.155.204.190 client-api.linear.app
+95.182.120.241 client-api.linear.app
+45.155.204.190 static.linear.app
+95.182.120.241 static.linear.app
+45.155.204.190 constellation.linear.app
+95.182.120.241 constellation.linear.app
+45.155.204.190 uploads.linear.app
+95.182.120.241 uploads.linear.app
+45.155.204.190 public.linear.app
+95.182.120.241 public.linear.app
+45.155.204.190 s.linear.app
+95.182.120.241 s.linear.app
+
+
+# Windsurf  (замены из первого)
+45.155.204.190 windsurf.com
+95.182.120.241 windsurf.com
+45.155.204.190 codeium.com
+95.182.120.241 codeium.com
+45.155.204.190 server.codeium.com
+95.182.120.241 server.codeium.com
+45.155.204.190 web-backend.codeium.com
+95.182.120.241 web-backend.codeium.com
+45.155.204.190 unleash.codeium.com
+95.182.120.241 unleash.codeium.com
+45.155.204.190 inference.codeium.com
+95.182.120.241 inference.codeium.com
+45.155.204.190 windsurf-stable.codeium.com
+95.182.120.241 windsurf-stable.codeium.com
+45.155.204.190 windsurf-telemetry.codeium.com
+95.182.120.241 windsurf-telemetry.codeium.com
+45.155.204.190 marketplace.windsurf.com
+95.182.120.241 marketplace.windsurf.com
+
+
+# Twitch  (замены из первого)
+45.155.204.190 usher.ttvnw.net
+95.182.120.241 usher.ttvnw.net
+45.155.204.190 gql.twitch.tv
+95.182.120.241 gql.twitch.tv
+
+
+# Manus  (замены из первого)
+45.155.204.190 manus.im
+95.182.120.241 manus.im
+45.155.204.190 api.manus.im
+95.182.120.241 api.manus.im
+
+
+# Notion  (замены из первого)
+45.155.204.190 www.notion.so
+95.182.120.241 www.notion.so
+45.155.204.190 calendar.notion.so
+95.182.120.241 calendar.notion.so
+
+
+# Canva  (замены из первого для совпадающих)
+45.155.204.190 content-management-files.canva.com
+95.182.120.241 content-management-files.canva.com
+45.155.204.190 static.canva.com
+95.182.120.241 static.canva.com
+# (добавлено из первого)
+45.155.204.190 canva.com
+95.182.120.241 canva.com
+45.155.204.190 www.canva.com
+95.182.120.241 www.canva.com
+
+
+# Intel  (замены из первого)
+45.155.204.190 www.intel.com
+95.182.120.241 www.intel.com
+
+
+# Dell  (замены из первого)
+45.155.204.190 www.dell.com
+95.182.120.241 www.dell.com
+
+
+# TikTok (в первом нет — оставлено как было)
 144.31.14.104 www.tiktok.com
 
-# Archive.org
-185.87.51.182 web.archive.org
 
-# NVIDIA
-185.87.51.182 developer.nvidia.com
+# Archive.org  (замены из первого)
+45.155.204.190 web.archive.org
+95.182.120.241 web.archive.org
 
-# Parsec
-185.87.51.182 builds.parsec.app
 
-# Tria.ge
-185.87.51.182 tria.ge
+# NVIDIA  (замены из первого)
+45.155.204.190 developer.nvidia.com
+95.182.120.241 developer.nvidia.com
 
-# Qwant
-185.87.51.182 www.qwant.com
 
-# guidedhacking.com
-185.87.51.182 guidedhacking.com
+# Parsec  (замены из первого)
+45.155.204.190 builds.parsec.app
+95.182.120.241 builds.parsec.app
 
-# Framer
-185.87.51.182 framer.com
 
-# Autodesk
-185.87.51.182 accounts.autodesk.com
-185.87.51.182 www.autodesk.com
+# Tria.ge  (замены из первого)
+45.155.204.190 tria.ge
+95.182.120.241 tria.ge
 
-# Pump.fun
-185.246.223.127 pump.fun
-185.246.223.127 frontend-api-v3.pump.fun
-185.246.223.127 images.pump.fun
-185.246.223.127 swap-api.pump.fun
 
-# Truth Social
-185.87.51.182 truthsocial.com
-185.87.51.182 static-assets-1.truthsocial.com
+# Qwant  (замены из первого)
+45.155.204.190 www.qwant.com
+95.182.120.241 www.qwant.com
 
-# Elgato
-185.246.223.127 www.elgato.com
 
-# Imgur
-185.87.51.182 api.imgur.com
+# guidedhacking.com  (замены из первого)
+45.155.204.190 guidedhacking.com
+95.182.120.241 guidedhacking.com
+45.155.204.190 www.guidedhacking.com
+95.182.120.241 www.guidedhacking.com
 
-# Dyson
 
-# Broadcom
-144.31.14.104 profile.broadcom.com
+# Framer  (замены из первого)
+45.155.204.190 framer.com
+95.182.120.241 framer.com
+45.155.204.190 www.framer.com
+95.182.120.241 www.framer.com
 
-# Discord(Finland Voice-Chat servers)
+
+# Autodesk  (замены из первого)
+45.155.204.190 accounts.autodesk.com
+95.182.120.241 accounts.autodesk.com
+45.155.204.190 www.autodesk.com
+95.182.120.241 www.autodesk.com
+
+
+# Pump.fun  (замены из первого)
+45.155.204.190 pump.fun
+95.182.120.241 pump.fun
+45.155.204.190 frontend-api-v3.pump.fun
+95.182.120.241 frontend-api-v3.pump.fun
+45.155.204.190 images.pump.fun
+95.182.120.241 images.pump.fun
+45.155.204.190 swap-api.pump.fun
+95.182.120.241 swap-api.pump.fun
+
+
+# Truth Social  (замены из первого)
+45.155.204.190 truthsocial.com
+95.182.120.241 truthsocial.com
+45.155.204.190 static-assets-1.truthsocial.com
+95.182.120.241 static-assets-1.truthsocial.com
+
+
+# Elgato  (замены из первого)
+45.155.204.190 www.elgato.com
+95.182.120.241 www.elgato.com
+
+
+# Imgur  (замены из первого)
+45.155.204.190 api.imgur.com
+95.182.120.241 api.imgur.com
+
+
+# Broadcom (совпадение — заменено из первого)
+45.155.204.190 profile.broadcom.com
+95.182.120.241 profile.broadcom.com
+
+
+# Discord(Finland Voice-Chat servers)  (оставлено как в исходных — в первом те же IP)
 104.25.158.178 finland10000.discord.media
 104.25.158.178 finland10001.discord.media
 104.25.158.178 finland10002.discord.media
@@ -509,7 +747,6 @@
 104.25.158.178 finland10197.discord.media
 104.25.158.178 finland10198.discord.media
 104.25.158.178 finland10199.discord.media
-
 # Блокировка
 0.0.0.0 0099xxy78.weebly.com
 0.0.0.0 0.0.0.0.hpyrdr.com
