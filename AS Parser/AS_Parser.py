@@ -35,6 +35,19 @@ ASN_LIST = {
     "Riot Games, Inc": "AS6507",
     "Linode": "AS63949",
     "I3DNET": "AS49544",
+    "Google Cloud": "AS15169",
+    "Microsoft Azure": "AS8075",
+    "Vultr": "AS20473",
+    "Oracle Cloud": "AS31898",
+    "HostPapa, ColoCrossing": "AS36352",
+    "Hurricane Electric": "AS6939",
+    "Cogent Communications": "AS174",
+    "GTT Communications": "AS3257",
+    "NTT Global": "AS2914",
+    "Telia Carrier": "AS1299",
+    "Firstcolo": "AS44066",
+    "Hosteur": "AS20773",
+    "ITL DC": "AS210403",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
