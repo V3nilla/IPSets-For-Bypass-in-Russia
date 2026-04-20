@@ -1,4 +1,4 @@
-Если хотите меня поддержать донатом) - https://www.donationalerts.com/r/aanxi3tyy
+Если хотите меня поддержать донатом) - https://dalink.to/aanxi3tyy
 
 ---------------------
 
