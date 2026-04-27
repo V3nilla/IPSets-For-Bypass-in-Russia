@@ -14,7 +14,7 @@ ASN_LIST = {
     "Datacamp, CDN77": "AS60068",
     "Contabo": "AS51167",
     "OVH": "AS16276",
-    "Constant(Vultr)": "AS20473",
+    "Constant (Vultr)": "AS20473",
     "Cloudflare": "AS13335",
     "Cloudflare 2": "AS14789",
     "Cloudflare 3": "AS132892",
@@ -45,6 +45,12 @@ ASN_LIST = {
     "Firstcolo": "AS44066",
     "Hosteur": "AS20773",
     "ITL DC": "AS210403",
+    "TELECOM ITALIA SPARKLE S.p.A": "AS6762",
+    "FTRSI": "AS5511",
+    "GlobeNet Cabos Submarinos Colombia, S.A.S": "AS52320",
+    "Lumen": "AS3356",
+    "Tata Communications": "AS6453",
+    "Verizon Business": "AS701",
 }
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
@@ -112,4 +118,3 @@ print("\nГотово!")
 print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
 
 print("Файл сохранён как ipset-all.txt")
-
