@@ -1,6 +1,6 @@
 # dns.malw.link: hosts file + dns.geohide.ru: hosts file
 
-# Последнее обновление: 21 апреля 2026
+# Последнее обновление: 7 мая 2026
 
 # Домены взяты из этих источников:
 # https://dns.geohide.ru:8443
@@ -16,6 +16,11 @@
 # 31.25.239.132
 
 # iptables -t nat -A PREROUTING -d 31.13.72.174 -j DNAT --to-destination 31.13.72.172
+
+# GitHub
+185.199.109.133 raw.githubusercontent.com
+185.199.109.133 release-assets.githubusercontent.com
+185.199.108.133 private-user-images.githubusercontent.com
 
 # Amd
 45.155.204.190 amd.com
