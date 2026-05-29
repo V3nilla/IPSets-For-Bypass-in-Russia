@@ -1822,15 +1822,6 @@
 37.230.192.51 builds.parsec.app
 0.0.0.0 builds.parsec.app
 
-# GitHub & GitHub Copilot
-185.199.108.133 raw.githubusercontent.com
-185.199.109.133 raw.githubusercontent.com
-185.199.109.133 release-assets.githubusercontent.com
-185.199.108.133 private-user-images.githubusercontent.com
-144.31.14.104 api.github.com
-144.31.14.104 api.individual.githubcopilot.com
-144.31.14.104 proxy.individual.githubcopilot.com
-
 # Telegram
 # https://raw.githubusercontent.com/Flowseal/zapret-discord-youtube/refs/heads/main/.service/hosts
 149.154.167.220 t.me
