@@ -148,7 +148,7 @@ def aggregate_prefixes(prefixes):
             continue
         try:
             net = ipaddress.ip_network(p, strict=False)
-            if net.prefixlen == 0 or not net.is_global:
+            if net.prefixlen == 0:
                 continue
             if net.version == 4:
                 v4.append(net)
