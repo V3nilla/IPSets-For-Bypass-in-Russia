@@ -77,8 +77,6 @@ ASN_LIST = {
     "Zenlayer": "AS21859",
 }
 
-# ========== КЕШИРОВАНИЕ ==========
-
 def load_cache():
     if CONFIG["use_cache"] and Path(CONFIG["cache_file"]).exists():
         with open(CONFIG["cache_file"], "r") as f:
@@ -90,18 +88,13 @@ def save_cache(cache):
         with open(CONFIG["cache_file"], "w") as f:
             json.dump(cache, f, indent=2)
 
-# ========== ЗАПРОС ПРЕФИКСОВ (С ПОВТОРАМИ) ==========
-
 def fetch_prefixes(asn, name, cache):
-    # Проверяем кеш
     if asn in cache:
         print(f"[cached] {name} ({asn})")
         return cache[asn]
 
     print(f"[+] {name} ({asn}) ...", flush=True)
     
-    # Повторяем запрос при ошибках
-
     for attempt in range(CONFIG["max_retries"]):
         try:
             r = requests.get(
@@ -113,102 +106,76 @@ def fetch_prefixes(asn, name, cache):
             data = r.json()
             prefixes = data.get("data", {}).get("prefixes", [])
             result = [p.get("prefix") for p in prefixes if p.get("prefix")]
-
-            # Сохраняем в кеш
-
             cache[asn] = result
-
-            # Небольшая задержка перед следующим ASN
-
             time.sleep(CONFIG["delay"])
             return result
-            
         except requests.exceptions.Timeout as e:
-            wait = CONFIG["retry_delay"] * (2 ** attempt)  # экспоненциальная задержка
+            wait = CONFIG["retry_delay"] * (2 ** attempt)
             print(f"    ⏱ Таймаут (попытка {attempt+1}/{CONFIG['max_retries']}), ждём {wait}с...")
             if attempt < CONFIG["max_retries"] - 1:
                 time.sleep(wait)
             else:
                 print(f"Пропускаем {name} ({asn}) из-за таймаута")
                 return []
-                
         except Exception as e:
             print(f"Ошибка: {e}")
             return []
     
     return []
 
-# ========== АГРЕГАЦИЯ ПРЕФИКСОВ ==========
-
-def aggregate_prefixes(prefixes):
-    v4 = []
-    v6 = []
-    for p in prefixes:
-        if not p:
-            continue
-        try:
-            net = ipaddress.ip_network(p, strict=False)
-            if net.prefixlen == 0:
-                continue
-            if net.version == 4:
-                v4.append(net)
-            else:
-                v6.append(net)
-        except:
-            continue
-    
-    v4_agg = list(ipaddress.collapse_addresses(sorted(v4, key=lambda n: (int(n.network_address), n.prefixlen))))
-    v6_agg = list(ipaddress.collapse_addresses(sorted(v6, key=lambda n: (int(n.network_address), n.prefixlen))))
-    return v4_agg, v6_agg
-
-# ========== ОСНОВНАЯ ФУНКЦИЯ ==========
-
 def main():
-    print("Загрузка префиксов из RIPE API (с автоматическими повторами)...\n")
+    print("Загрузка префиксов из RIPE API...\n")
     
     cache = load_cache()
-    all_v4 = set()
-    all_v6 = set()
+    v4_all = set()
+    v6_all = set()
     
     for name, asn in ASN_LIST.items():
         prefixes = fetch_prefixes(asn, name, cache)
-        if prefixes:
-            v4, v6 = aggregate_prefixes(prefixes)
-            all_v4.update(v4)
-            all_v6.update(v6)
-            print(f"Добавлено: IPv4={len(v4)}, IPv6={len(v6)} (из {len(prefixes)} префиксов)")
-        else:
-            print(f"Нет данных для {name} ({asn})")
+        count = 0
+        for p in prefixes:
+            if not p:
+                continue
+            try:
+                net = ipaddress.ip_network(p, strict=False)
+                if net.prefixlen == 0 or not net.is_global:
+                    continue
+                if net.version == 4:
+                    v4_all.add(net)
+                else:
+                    v6_all.add(net)
+                count += 1
+            except Exception:
+                continue
+        print(f"    Добавлено: {count} префиксов")
     
-    # Сохраняем кеш
-
     save_cache(cache)
     
-    # Финальная агрегация
-
-    final_v4 = list(ipaddress.collapse_addresses(sorted(all_v4, key=lambda n: (int(n.network_address), n.prefixlen))))
-    final_v6 = list(ipaddress.collapse_addresses(sorted(all_v6, key=lambda n: (int(n.network_address), n.prefixlen))))
+    v4_agg = list(ipaddress.collapse_addresses(
+        sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))
+    ))
+    v6_agg = list(ipaddress.collapse_addresses(
+        sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))
+    ))
     
-    # Сортировка
-    final_v4.sort(key=lambda n: (int(n.network_address), n.prefixlen))
-    final_v6.sort(key=lambda n: (int(n.network_address), n.prefixlen))
+    def sort_key(n):
+        return (n.version, int(n.network_address), n.prefixlen)
     
-    # Сохранение TXT
-
+    v4_sorted = sorted(v4_agg, key=sort_key)
+    v6_sorted = sorted(v6_agg, key=sort_key)
+    
     with open(CONFIG["output_file"], "w", encoding="utf-8") as f:
-        for net in final_v4:
+        for net in v4_sorted:
             f.write(str(net) + "\n")
-        for net in final_v6:
+        for net in v6_sorted:
             f.write(str(net) + "\n")
     
-    # Сохранение JSON с метаданными
-
     metadata = {
         "generated": time.strftime("%Y-%m-%d %H:%M:%S"),
         "asn_count": len(ASN_LIST),
-        "ipv4_prefixes": len(final_v4),
-        "ipv6_prefixes": len(final_v6),
-        "total_prefixes": len(final_v4) + len(final_v6),
+        "ipv4_prefixes": len(v4_sorted),
+        "ipv6_prefixes": len(v6_sorted),
+        "total_prefixes": len(v4_sorted) + len(v6_sorted),
         "asn_list": list(ASN_LIST.keys())
     }
     with open(CONFIG["output_json"], "w", encoding="utf-8") as f:
@@ -216,7 +183,7 @@ def main():
     
     print("\n" + "="*50)
     print("ГОТОВО!")
-    print(f"TXT: {CONFIG['output_file']} ({len(final_v4)} IPv4 + {len(final_v6)} IPv6)")
+    print(f"TXT: {CONFIG['output_file']} ({len(v4_sorted)} IPv4 + {len(v6_sorted)} IPv6)")
     print(f"JSON: {CONFIG['output_json']}")
     print("="*50)
 
