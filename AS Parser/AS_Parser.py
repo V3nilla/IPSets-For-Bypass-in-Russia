@@ -75,7 +75,6 @@ ASN_LIST = {
     "Amazon 3": "AS8987",
     "G-Core": "AS199524",
     "G-Core 2": "AS202422",
-    "Roblox": "AS22697",
     "Fellowship": "AS46461",
     "Fastly": "AS54113",
     "FranTech": "AS53667",
