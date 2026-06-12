@@ -1,27 +1,7 @@
 #!/usr/bin/env python3
-
 import requests
 import ipaddress
 import time
-import json
-from pathlib import Path
-
-# ========== КОНФИГУРАЦИЯ ==========
-
-CONFIG = {
-    "api_url": "https://stat.ripe.net/data/announced-prefixes/data.json",
-    "timeout": 15,                      
-    "connect_timeout": 5,               # таймаут подключения
-    "delay": 1.0,                       # задержка между ASN
-    "max_retries": 3,                   # количество повторов при ошибке
-    "retry_delay": 5,                   # начальная задержка между повторами
-    "output_file": "ipset-all.txt",
-    "output_json": "ipset-all.json",
-    "cache_file": "asn_cache.json",
-    "use_cache": True,
-}
-
-# ==================================
 
 ASN_LIST = {
     "Scaleway": "AS12876",
@@ -124,68 +104,33 @@ ASN_LIST = {
     "Imperva_Incapsula": "AS19551",
 }
 
-def load_cache():
-    if CONFIG["use_cache"] and Path(CONFIG["cache_file"]).exists():
-        with open(CONFIG["cache_file"], "r") as f:
-            return json.load(f)
-    return {}
+API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
+TIMEOUT = 15  # секунд
 
-def save_cache(cache):
-    if CONFIG["use_cache"]:
-        with open(CONFIG["cache_file"], "w") as f:
-            json.dump(cache, f, indent=2)
+v4_all = set()
+v6_all = set()
 
-def fetch_prefixes(asn, name, cache):
-    if asn in cache:
-        print(f"[cached] {name} ({asn})")
-        return cache[asn]
-
-    print(f"[+] {name} ({asn}) ...", flush=True)
-    
-    for attempt in range(CONFIG["max_retries"]):
-        try:
-            r = requests.get(
-                CONFIG["api_url"],
-                params={"resource": asn, "min_peers_seeing": 1},
-                timeout=(CONFIG["connect_timeout"], CONFIG["timeout"])
-            )
-            r.raise_for_status()
-            data = r.json()
-            prefixes = data.get("data", {}).get("prefixes", [])
-            result = [p.get("prefix") for p in prefixes if p.get("prefix")]
-            cache[asn] = result
-            time.sleep(CONFIG["delay"])
-            return result
-        except requests.exceptions.Timeout as e:
-            wait = CONFIG["retry_delay"] * (2 ** attempt)
-            print(f"    ⏱ Таймаут (попытка {attempt+1}/{CONFIG['max_retries']}), ждём {wait}с...")
-            if attempt < CONFIG["max_retries"] - 1:
-                time.sleep(wait)
-            else:
-                print(f"Пропускаем {name} ({asn}) из-за таймаута")
-                return []
-        except Exception as e:
-            print(f"Ошибка: {e}")
-            return []
-    
-    return []
-
-def main():
-    print("Загрузка префиксов из RIPE API...\n")
-    
-    cache = load_cache()
-    v4_all = set()
-    v6_all = set()
-    
-    for name, asn in ASN_LIST.items():
-        prefixes = fetch_prefixes(asn, name, cache)
+for name, asn in ASN_LIST.items():
+    print(f"[+] Обработка {name} ({asn}) ...", flush=True)
+    try:
+        r = requests.get(
+            API_URL,
+            params={"resource": asn, "min_peers_seeing": 1},
+            timeout=TIMEOUT
+        )
+        r.raise_for_status()
+        data = r.json().get("data", {}).get("prefixes", [])
         count = 0
-        for p in prefixes:
-            if not p:
+
+        for p in data:
+            prefix = p.get("prefix")
+            if not prefix:
                 continue
             try:
-                net = ipaddress.ip_network(p, strict=False)
-                if net.prefixlen == 0 or not net.is_global:
+                net = ipaddress.ip_network(prefix, strict=False)
+                if net.prefixlen == 0:
+                    continue
+                if not net.is_global:
                     continue
                 if net.version == 4:
                     v4_all.add(net)
@@ -194,45 +139,33 @@ def main():
                 count += 1
             except Exception:
                 continue
-        print(f"    Добавлено: {count} префиксов")
-    
-    save_cache(cache)
-    
-    v4_agg = list(ipaddress.collapse_addresses(
-        sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))
-    ))
-    v6_agg = list(ipaddress.collapse_addresses(
-        sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))
-    ))
-    
-    def sort_key(n):
-        return (n.version, int(n.network_address), n.prefixlen)
-    
-    v4_sorted = sorted(v4_agg, key=sort_key)
-    v6_sorted = sorted(v6_agg, key=sort_key)
-    
-    with open(CONFIG["output_file"], "w", encoding="utf-8") as f:
-        for net in v4_sorted:
-            f.write(str(net) + "\n")
-        for net in v6_sorted:
-            f.write(str(net) + "\n")
-    
-    metadata = {
-        "generated": time.strftime("%Y-%m-%d %H:%M:%S"),
-        "asn_count": len(ASN_LIST),
-        "ipv4_prefixes": len(v4_sorted),
-        "ipv6_prefixes": len(v6_sorted),
-        "total_prefixes": len(v4_sorted) + len(v6_sorted),
-        "asn_list": list(ASN_LIST.keys())
-    }
-    with open(CONFIG["output_json"], "w", encoding="utf-8") as f:
-        json.dump(metadata, f, indent=2, ensure_ascii=False)
-    
-    print("\n" + "="*50)
-    print("ГОТОВО!")
-    print(f"TXT: {CONFIG['output_file']} ({len(v4_sorted)} IPv4 + {len(v6_sorted)} IPv6)")
-    print(f"JSON: {CONFIG['output_json']}")
-    print("="*50)
 
-if __name__ == "__main__":
-    main()
+        print(f"    {count} префиксов добавлено")
+    except Exception as e:
+        print(f"    Ошибка при получении {asn}: {e}")
+
+    time.sleep(1.0)  # чтобы не бомбить API
+
+v4_agg = list(ipaddress.collapse_addresses(
+    sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))
+))
+v6_agg = list(ipaddress.collapse_addresses(
+    sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))
+))
+
+def sort_key(n):
+    return (n.version, int(n.network_address), n.prefixlen)
+
+v4_sorted = sorted(v4_agg, key=sort_key)
+v6_sorted = sorted(v6_agg, key=sort_key)
+
+with open("ipset-all.txt", "w", encoding="utf-8") as f:
+    for net in v4_sorted:
+        f.write(str(net) + "\n")
+    for net in v6_sorted:
+        f.write(str(net) + "\n")
+
+print("\nГотово!")
+print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
+
+print("Файл сохранён как ipset-all.txt")
