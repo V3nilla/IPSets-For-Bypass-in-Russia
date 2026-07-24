@@ -1,8 +1,25 @@
 #!/usr/bin/env python3
-import requests
 import ipaddress
-import time
+import logging
+import concurrent.futures as cf
 
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
+CONNECT_TIMEOUT = 10
+READ_TIMEOUT = 30
+WORKERS = 6  # число параллельных запросов
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    datefmt="%H:%M:%S",
+)
+log = logging.getLogger(__name__)
+
+# Имя провайдера/сети -> ASN
 ASN_LIST = {
     "Scaleway": "AS12876",
     "Hetzner": "AS24940",
@@ -104,68 +121,73 @@ ASN_LIST = {
     "Imperva_Incapsula": "AS19551",
 }
 
-API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
-TIMEOUT = 15  # секунд
+session = requests.Session()
+retry = Retry(total=5, backoff_factor=1.5, status_forcelist=(429, 500, 502, 503, 504), allowed_methods=("GET",))
+session.mount("https://", HTTPAdapter(max_retries=retry))
 
-v4_all = set()
-v6_all = set()
 
-for name, asn in ASN_LIST.items():
-    print(f"[+] Обработка {name} ({asn}) ...", flush=True)
+def fetch(name: str, asn: str) -> tuple[set, set]:
+    v4, v6 = set(), set()
+
     try:
-        r = requests.get(
+        r = session.get(
             API_URL,
             params={"resource": asn, "min_peers_seeing": 1},
-            timeout=TIMEOUT
+            timeout=(CONNECT_TIMEOUT, READ_TIMEOUT),
         )
         r.raise_for_status()
-        data = r.json().get("data", {}).get("prefixes", [])
-        count = 0
-
-        for p in data:
-            prefix = p.get("prefix")
-            if not prefix:
-                continue
-            try:
-                net = ipaddress.ip_network(prefix, strict=False)
-                if net.prefixlen == 0:
-                    continue
-                if not net.is_global:
-                    continue
-                if net.version == 4:
-                    v4_all.add(net)
-                else:
-                    v6_all.add(net)
-                count += 1
-            except Exception:
-                continue
-
-        print(f"    {count} префиксов добавлено")
+        prefixes = r.json().get("data", {}).get("prefixes", [])
     except Exception as e:
-        print(f"    Ошибка при получении {asn}: {e}")
+        log.warning("%s (%s): ошибка — %s", name, asn, e)
+        return v4, v6
 
-    time.sleep(1.0)  # чтобы не бомбить API
+    for p in prefixes:
+        prefix = p.get("prefix")
+        if not prefix:
+            continue
+        try:
+            net = ipaddress.ip_network(prefix, strict=False)
+        except ValueError:
+            continue
+        if net.prefixlen == 0 or not net.is_global:
+            continue
+        (v4 if net.version == 4 else v6).add(net)
 
-v4_agg = list(ipaddress.collapse_addresses(
-    sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))
-))
-v6_agg = list(ipaddress.collapse_addresses(
-    sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))
-))
+    log.info("%s (%s): %d префиксов", name, asn, len(v4) + len(v6))
+    return v4, v6
 
-def sort_key(n):
-    return (n.version, int(n.network_address), n.prefixlen)
 
-v4_sorted = sorted(v4_agg, key=sort_key)
-v6_sorted = sorted(v6_agg, key=sort_key)
+def main() -> None:
+    log.info("Старт сбора для %d ASN (workers=%d)", len(ASN_LIST), WORKERS)
+    v4_all, v6_all = set(), set()
 
-with open("ipset-all.txt", "w", encoding="utf-8") as f:
-    for net in v4_sorted:
-        f.write(str(net) + "\n")
-    for net in v6_sorted:
-        f.write(str(net) + "\n")
+    with cf.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        futures = [pool.submit(fetch, name, asn) for name, asn in ASN_LIST.items()]
+        for future in cf.as_completed(futures):
+            v4, v6 = future.result()
+            v4_all |= v4
+            v6_all |= v6
 
-print("\nГотово!")
-print(f"IPv4: {len(v4_sorted)} | IPv6: {len(v6_sorted)} | Всего: {len(v4_sorted)+len(v6_sorted)}")
+    v4_sorted = sorted(
+        ipaddress.collapse_addresses(sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))),
+        key=lambda n: (int(n.network_address), n.prefixlen),
+    )
+    v6_sorted = sorted(
+        ipaddress.collapse_addresses(sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))),
+        key=lambda n: (int(n.network_address), n.prefixlen),
+    )
 
-print("Файл сохранён как ipset-all.txt")
+    with open("ipset-all.txt", "w", encoding="utf-8") as f:
+        for net in v4_sorted:
+            f.write(str(net) + "\n")
+        for net in v6_sorted:
+            f.write(str(net) + "\n")
+
+    log.info(
+        "Готово! IPv4: %d | IPv6: %d | Всего: %d",
+        len(v4_sorted), len(v6_sorted), len(v4_sorted) + len(v6_sorted),
+    )
+
+
+if __name__ == "__main__":
+    main()
