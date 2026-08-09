@@ -32,10 +32,10 @@ AS Parser - автоматически отыщет CIDR Адреса, отсо�
 
 Помогите поддержать проект звездочкой, поставьте ⭐ на этот репозиторий!
 
-<a href="https://www.star-history.com/#V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left">
+<a href="https://www.star-history.com/?type=date&legend=top-left&repos=V3nilla%2FIPSets-For-Bypass-in-Russia">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&theme=dark&legend=top-left&sealed_token=v_v1S9J6NhMW-uJIk2s-7d8pF172WLT_yrluKwu7bmKmERC9n27NZCZ5DXrmtIGDjnmAIKKUR7yPAYW4aO2wDj0QvIN4ExHT5WhHb82npJU6_iKeEtDlkLOWOs-pDYcjHduSwAPxoPaSHFZYIHDDrHpizWvmpvnJnar-uDjnf6B73gb9yafoAWZhnZQ8" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left&sealed_token=v_v1S9J6NhMW-uJIk2s-7d8pF172WLT_yrluKwu7bmKmERC9n27NZCZ5DXrmtIGDjnmAIKKUR7yPAYW4aO2wDj0QvIN4ExHT5WhHb82npJU6_iKeEtDlkLOWOs-pDYcjHduSwAPxoPaSHFZYIHDDrHpizWvmpvnJnar-uDjnf6B73gb9yafoAWZhnZQ8" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=V3nilla/IPSets-For-Bypass-in-Russia&type=date&legend=top-left&sealed_token=v_v1S9J6NhMW-uJIk2s-7d8pF172WLT_yrluKwu7bmKmERC9n27NZCZ5DXrmtIGDjnmAIKKUR7yPAYW4aO2wDj0QvIN4ExHT5WhHb82npJU6_iKeEtDlkLOWOs-pDYcjHduSwAPxoPaSHFZYIHDDrHpizWvmpvnJnar-uDjnf6B73gb9yafoAWZhnZQ8" />
  </picture>
 </a>
