@@ -8,9 +8,14 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
+CHEBURCHECK_URL = (
+    "https://raw.githubusercontent.com/"
+    "123jjck/cdn-ip-ranges/main/all/all_plain.txt"
+)
+
 CONNECT_TIMEOUT = 10
 READ_TIMEOUT = 30
-WORKERS = 6  # число параллельных запросов
+WORKERS = 6
 
 logging.basicConfig(
     level=logging.INFO,
@@ -19,7 +24,6 @@ logging.basicConfig(
 )
 log = logging.getLogger(__name__)
 
-# Имя провайдера/сети -> ASN
 ASN_LIST = {
     "Scaleway": "AS12876",
     "Hetzner": "AS24940",
@@ -126,9 +130,64 @@ retry = Retry(total=5, backoff_factor=1.5, status_forcelist=(429, 500, 502, 503,
 session.mount("https://", HTTPAdapter(max_retries=retry))
 
 
-def fetch(name: str, asn: str) -> tuple[set, set]:
-    v4, v6 = set(), set()
+def load_cheburcheck() -> tuple[set, set]:
+    v4 = set()
+    v6 = set()
+    log.info("Загрузка актуальной базы Cheburcheck...")
+    try:
+        r = session.get(CHEBURCHECK_URL, timeout=(CONNECT_TIMEOUT, READ_TIMEOUT))
+        r.raise_for_status()
+    except Exception as e:
+        log.error("Не удалось загрузить Cheburcheck: %s", e)
+        raise
+    for line in r.text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            net = ipaddress.ip_network(line, strict=False)
+        except ValueError:
+            continue
+        if net.prefixlen == 0:
+            continue
+        if not net.is_global:
+            continue
+        if net.version == 4:
+            v4.add(net)
+        else:
+            v6.add(net)
+    log.info(
+        "Cheburcheck: IPv4=%d | IPv6=%d | Всего=%d",
+        len(v4), len(v6), len(v4) + len(v6),
+    )
+    if not v4 and not v6:
+        raise RuntimeError("Cheburcheck вернул пустой список")
+    return v4, v6
 
+
+def intersect_networks(networks: set, cheburcheck: set) -> set:
+    result = set()
+    if not networks or not cheburcheck:
+        return result
+    for net in networks:
+        for cc_net in cheburcheck:
+            if net.version != cc_net.version:
+                continue
+            if (
+                int(net.network_address) > int(cc_net.broadcast_address)
+                or int(cc_net.network_address) > int(net.broadcast_address)
+            ):
+                continue
+            if cc_net.subnet_of(net):
+                result.add(cc_net)
+            elif net.subnet_of(cc_net):
+                result.add(net)
+    return result
+
+
+def fetch(name: str, asn: str, cheburcheck_v4: set, cheburcheck_v6: set) -> tuple[set, set]:
+    v4 = set()
+    v6 = set()
     try:
         r = session.get(
             API_URL,
@@ -140,7 +199,6 @@ def fetch(name: str, asn: str) -> tuple[set, set]:
     except Exception as e:
         log.warning("%s (%s): ошибка — %s", name, asn, e)
         return v4, v6
-
     for p in prefixes:
         prefix = p.get("prefix")
         if not prefix:
@@ -151,41 +209,52 @@ def fetch(name: str, asn: str) -> tuple[set, set]:
             continue
         if net.prefixlen == 0 or not net.is_global:
             continue
-        (v4 if net.version == 4 else v6).add(net)
-
-    log.info("%s (%s): %d префиксов", name, asn, len(v4) + len(v6))
+        if net.version == 4:
+            v4.add(net)
+        else:
+            v6.add(net)
+    ripe_count = len(v4) + len(v6)
+    v4 = intersect_networks(v4, cheburcheck_v4)
+    v6 = intersect_networks(v6, cheburcheck_v6)
+    log.info("%s (%s): RIPE=%d | Cheburcheck match=%d", name, asn, ripe_count, len(v4) + len(v6))
     return v4, v6
 
 
 def main() -> None:
+    cheburcheck_v4, cheburcheck_v6 = load_cheburcheck()
     log.info("Старт сбора для %d ASN (workers=%d)", len(ASN_LIST), WORKERS)
     v4_all, v6_all = set(), set()
-
     with cf.ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = [pool.submit(fetch, name, asn) for name, asn in ASN_LIST.items()]
+        futures = [
+            pool.submit(fetch, name, asn, cheburcheck_v4, cheburcheck_v6)
+            for name, asn in ASN_LIST.items()
+        ]
         for future in cf.as_completed(futures):
             v4, v6 = future.result()
             v4_all |= v4
             v6_all |= v6
-
     v4_sorted = sorted(
-        ipaddress.collapse_addresses(sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))),
+        ipaddress.collapse_addresses(
+            sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))
+        ),
         key=lambda n: (int(n.network_address), n.prefixlen),
     )
     v6_sorted = sorted(
-        ipaddress.collapse_addresses(sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))),
+        ipaddress.collapse_addresses(
+            sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))
+        ),
         key=lambda n: (int(n.network_address), n.prefixlen),
     )
-
     with open("ipset-all.txt", "w", encoding="utf-8") as f:
         for net in v4_sorted:
             f.write(str(net) + "\n")
         for net in v6_sorted:
             f.write(str(net) + "\n")
-
     log.info(
         "Готово! IPv4: %d | IPv6: %d | Всего: %d",
-        len(v4_sorted), len(v6_sorted), len(v4_sorted) + len(v6_sorted),
+        len(v4_sorted),
+        len(v6_sorted),
+        len(v4_sorted) + len(v6_sorted),
     )
 
 
