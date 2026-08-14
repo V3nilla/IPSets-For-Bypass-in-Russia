@@ -15,7 +15,7 @@ CHEBURCHECK_URL = (
 
 CONNECT_TIMEOUT = 10
 READ_TIMEOUT = 30
-WORKERS = 6
+WORKERS = 10
 
 logging.basicConfig(
     level=logging.INFO,
@@ -126,8 +126,8 @@ ASN_LIST = {
 }
 
 session = requests.Session()
-retry = Retry(total=5, backoff_factor=1.5, status_forcelist=(429, 500, 502, 503, 504), allowed_methods=("GET",))
-session.mount("https://", HTTPAdapter(max_retries=retry))
+retry = Retry(total=5,backoff_factor=1.5,status_forcelist=(429, 500, 502, 503, 504),allowed_methods=("GET",))
+session.mount("https://",HTTPAdapter(max_retries=retry, pool_connections=WORKERS, pool_maxsize=WORKERS))
 
 
 def load_cheburcheck() -> tuple[set, set]:
@@ -158,34 +158,67 @@ def load_cheburcheck() -> tuple[set, set]:
             v6.add(net)
     log.info(
         "Cheburcheck: IPv4=%d | IPv6=%d | Всего=%d",
-        len(v4), len(v6), len(v4) + len(v6),
+        len(v4),
+        len(v6),
+        len(v4) + len(v6),
     )
     if not v4 and not v6:
         raise RuntimeError("Cheburcheck вернул пустой список")
     return v4, v6
 
 
-def intersect_networks(networks: set, cheburcheck: set) -> set:
+def intersect_networks_fast(networks: set, cheburcheck: set) -> set:
     result = set()
     if not networks or not cheburcheck:
         return result
+
+    cc_sorted = sorted(
+        cheburcheck, key=lambda n: (n.version, int(n.network_address), n.prefixlen)
+    )
+
     for net in networks:
-        for cc_net in cheburcheck:
-            if net.version != cc_net.version:
+        net_start = int(net.network_address)
+        net_end = int(net.broadcast_address)
+        net_version = net.version
+
+        left, right = 0, len(cc_sorted)
+        while left < right:
+            mid = (left + right) // 2
+            cc_net = cc_sorted[mid]
+            if cc_net.version < net_version:
+                left = mid + 1
+            elif cc_net.version > net_version:
+                right = mid
+            elif int(cc_net.network_address) < net_start:
+                left = mid + 1
+            else:
+                right = mid
+
+        check_start = max(0, left - 20)
+        check_end = min(len(cc_sorted), left + 20)
+
+        for i in range(check_start, check_end):
+            cc_net = cc_sorted[i]
+            if cc_net.version != net_version:
                 continue
-            if (
-                int(net.network_address) > int(cc_net.broadcast_address)
-                or int(cc_net.network_address) > int(net.broadcast_address)
-            ):
+
+            cc_start = int(cc_net.network_address)
+            cc_end = int(cc_net.broadcast_address)
+
+            if net_start > cc_end or cc_start > net_end:
                 continue
+
             if cc_net.subnet_of(net):
                 result.add(cc_net)
             elif net.subnet_of(cc_net):
                 result.add(net)
+
     return result
 
 
-def fetch(name: str, asn: str, cheburcheck_v4: set, cheburcheck_v6: set) -> tuple[set, set]:
+def fetch(
+    name: str, asn: str, cheburcheck_v4: set, cheburcheck_v6: set
+) -> tuple[str, set, set]:
     v4 = set()
     v6 = set()
     try:
@@ -198,7 +231,11 @@ def fetch(name: str, asn: str, cheburcheck_v4: set, cheburcheck_v6: set) -> tupl
         prefixes = r.json().get("data", {}).get("prefixes", [])
     except Exception as e:
         log.warning("%s (%s): ошибка — %s", name, asn, e)
-        return v4, v6
+        return name, v4, v6
+
+    v4_networks = set()
+    v6_networks = set()
+
     for p in prefixes:
         prefix = p.get("prefix")
         if not prefix:
@@ -210,29 +247,54 @@ def fetch(name: str, asn: str, cheburcheck_v4: set, cheburcheck_v6: set) -> tupl
         if net.prefixlen == 0 or not net.is_global:
             continue
         if net.version == 4:
-            v4.add(net)
+            v4_networks.add(net)
         else:
-            v6.add(net)
-    ripe_count = len(v4) + len(v6)
-    v4 = intersect_networks(v4, cheburcheck_v4)
-    v6 = intersect_networks(v6, cheburcheck_v6)
-    log.info("%s (%s): RIPE=%d | Cheburcheck match=%d", name, asn, ripe_count, len(v4) + len(v6))
-    return v4, v6
+            v6_networks.add(net)
+
+    ripe_count = len(v4_networks) + len(v6_networks)
+    v4 = intersect_networks_fast(v4_networks, cheburcheck_v4)
+    v6 = intersect_networks_fast(v6_networks, cheburcheck_v6)
+    log.info(
+        "%s (%s): RIPE=%d | Cheburcheck match=%d",
+        name,
+        asn,
+        ripe_count,
+        len(v4) + len(v6),
+    )
+    return name, v4, v6
 
 
 def main() -> None:
     cheburcheck_v4, cheburcheck_v6 = load_cheburcheck()
     log.info("Старт сбора для %d ASN (workers=%d)", len(ASN_LIST), WORKERS)
+
+    results = {}
     v4_all, v6_all = set(), set()
+
     with cf.ThreadPoolExecutor(max_workers=WORKERS) as pool:
-        futures = [
-            pool.submit(fetch, name, asn, cheburcheck_v4, cheburcheck_v6)
+        futures = {
+            pool.submit(fetch, name, asn, cheburcheck_v4, cheburcheck_v6): name
             for name, asn in ASN_LIST.items()
-        ]
+        }
+
         for future in cf.as_completed(futures):
-            v4, v6 = future.result()
+            name, v4, v6 = future.result()
+            results[name] = (v4, v6)
             v4_all |= v4
             v6_all |= v6
+
+    log.info("\nРезультаты в порядке ASN_LIST:")
+    for name in ASN_LIST.keys():
+        if name in results:
+            v4, v6 = results[name]
+            log.info(
+                "  %-30s: IPv4=%d, IPv6=%d, Всего=%d",
+                name,
+                len(v4),
+                len(v6),
+                len(v4) + len(v6),
+            )
+
     v4_sorted = sorted(
         ipaddress.collapse_addresses(
             sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))
@@ -245,11 +307,13 @@ def main() -> None:
         ),
         key=lambda n: (int(n.network_address), n.prefixlen),
     )
+
     with open("ipset-all.txt", "w", encoding="utf-8") as f:
         for net in v4_sorted:
             f.write(str(net) + "\n")
         for net in v6_sorted:
             f.write(str(net) + "\n")
+
     log.info(
         "Готово! IPv4: %d | IPv6: %d | Всего: %d",
         len(v4_sorted),
