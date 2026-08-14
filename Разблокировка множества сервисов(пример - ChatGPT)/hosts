@@ -51,6 +51,17 @@
 172.64.33.155 d.rutor.info
 172.64.33.155 d.rutor.is
 
+# ---------- Discord ----------
+
+162.159.138.232 discord.com
+162.159.137.232 discord.com
+162.159.128.233 discord.com
+162.159.135.232 discord.com
+162.159.138.232 updates.discord.com
+162.159.137.232 updates.discord.com
+162.159.128.233 updates.discord.com
+162.159.135.232 updates.discord.com
+
 # ---------- Сервисы через GeoHide DNS ----------
 
 # AMD
