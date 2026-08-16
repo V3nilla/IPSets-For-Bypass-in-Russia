@@ -7,15 +7,20 @@ import requests
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
-CHEBURCHECK_URL = (
-    "https://raw.githubusercontent.com/"
-    "123jjck/cdn-ip-ranges/main/all/all_plain.txt"
-)
+API_URL = "https://bgp.tools/table.txt"
+CHEBURCHECK_URL = "https://raw.githubusercontent.com/123jjck/cdn-ip-ranges/main/all/all_plain.txt"
 
 CONNECT_TIMEOUT = 10
 READ_TIMEOUT = 30
 WORKERS = 10
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/plain,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+}
 
 logging.basicConfig(
     level=logging.INFO,
@@ -126,9 +131,10 @@ ASN_LIST = {
 }
 
 session = requests.Session()
+session.headers.update(HEADERS)
+
 retry = Retry(total=5,backoff_factor=1.5,status_forcelist=(429, 500, 502, 503, 504),allowed_methods=("GET",))
 session.mount("https://",HTTPAdapter(max_retries=retry, pool_connections=WORKERS, pool_maxsize=WORKERS))
-
 
 def load_cheburcheck() -> tuple[set, set]:
     v4 = set()
@@ -166,6 +172,35 @@ def load_cheburcheck() -> tuple[set, set]:
         raise RuntimeError("Cheburcheck вернул пустой список")
     return v4, v6
 
+def get_prefixes_from_bgptools() -> dict:
+    prefixes_by_asn = {}
+    
+    log.info("Загрузка полной таблицы маршрутизации из BGP.Tools...")
+    r = session.get(
+        API_URL,
+        timeout=(CONNECT_TIMEOUT, READ_TIMEOUT * 2),
+        headers={"Referer": "https://bgp.tools/"},
+    )
+    r.raise_for_status()
+    
+    for line in r.text.splitlines():
+        if line.startswith("#") or not line.strip():
+            continue
+        
+        parts = line.split()
+        if len(parts) >= 2:
+            prefix = parts[0]
+            asn = parts[1]
+            
+            if not asn.startswith("AS"):
+                asn = f"AS{asn}"
+            
+            if asn not in prefixes_by_asn:
+                prefixes_by_asn[asn] = set()
+            prefixes_by_asn[asn].add(prefix)
+    
+    log.info("BGP.Tools: загружено %d ASN", len(prefixes_by_asn))
+    return prefixes_by_asn
 
 def intersect_networks_fast(networks: set, cheburcheck: set) -> set:
     result = set()
@@ -215,31 +250,20 @@ def intersect_networks_fast(networks: set, cheburcheck: set) -> set:
 
     return result
 
-
-def fetch(
-    name: str, asn: str, cheburcheck_v4: set, cheburcheck_v6: set
-) -> tuple[str, set, set]:
+def fetch(name: str,asn: str,cheburcheck_v4: set,cheburcheck_v6: set,bgptools_data: dict,) -> tuple[str, set, set]:
     v4 = set()
     v6 = set()
-    try:
-        r = session.get(
-            API_URL,
-            params={"resource": asn, "min_peers_seeing": 1},
-            timeout=(CONNECT_TIMEOUT, READ_TIMEOUT),
-        )
-        r.raise_for_status()
-        prefixes = r.json().get("data", {}).get("prefixes", [])
-    except Exception as e:
-        log.warning("%s (%s): ошибка — %s", name, asn, e)
+    
+    all_prefixes = bgptools_data.get(asn, set())
+    
+    if not all_prefixes:
+        log.warning("%s (%s): нет данных в BGP.Tools", name, asn)
         return name, v4, v6
 
     v4_networks = set()
     v6_networks = set()
 
-    for p in prefixes:
-        prefix = p.get("prefix")
-        if not prefix:
-            continue
+    for prefix in all_prefixes:
         try:
             net = ipaddress.ip_network(prefix, strict=False)
         except ValueError:
@@ -251,21 +275,22 @@ def fetch(
         else:
             v6_networks.add(net)
 
-    ripe_count = len(v4_networks) + len(v6_networks)
+    total_count = len(v4_networks) + len(v6_networks)
     v4 = intersect_networks_fast(v4_networks, cheburcheck_v4)
     v6 = intersect_networks_fast(v6_networks, cheburcheck_v6)
     log.info(
-        "%s (%s): RIPE=%d | Cheburcheck match=%d",
+        "%s (%s): Всего префиксов=%d | Cheburcheck match=%d",
         name,
         asn,
-        ripe_count,
+        total_count,
         len(v4) + len(v6),
     )
     return name, v4, v6
 
-
 def main() -> None:
     cheburcheck_v4, cheburcheck_v6 = load_cheburcheck()
+    bgptools_data = get_prefixes_from_bgptools()
+    
     log.info("Старт сбора для %d ASN (workers=%d)", len(ASN_LIST), WORKERS)
 
     results = {}
@@ -273,7 +298,9 @@ def main() -> None:
 
     with cf.ThreadPoolExecutor(max_workers=WORKERS) as pool:
         futures = {
-            pool.submit(fetch, name, asn, cheburcheck_v4, cheburcheck_v6): name
+            pool.submit(
+                fetch, name, asn, cheburcheck_v4, cheburcheck_v6, bgptools_data
+            ): name
             for name, asn in ASN_LIST.items()
         }
 
@@ -320,7 +347,6 @@ def main() -> None:
         len(v6_sorted),
         len(v4_sorted) + len(v6_sorted),
     )
-
 
 if __name__ == "__main__":
     main()
