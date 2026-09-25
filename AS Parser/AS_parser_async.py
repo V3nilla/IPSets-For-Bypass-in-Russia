@@ -1,4 +1,35 @@
 #!/usr/bin/env python3
+
+import sys
+import subprocess
+import importlib.util
+
+
+def ensure_package(package_name: str) -> None:
+    if importlib.util.find_spec(package_name) is not None:
+        return
+
+    print(f"[INFO] Пакет '{package_name}' не найден.")
+    print(f"[INFO] Устанавливаю '{package_name}'...")
+
+    try:
+        subprocess.check_call([
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            package_name,
+        ])
+    except subprocess.CalledProcessError:
+        print(f"[ERROR] Не удалось установить '{package_name}'.")
+        sys.exit(1)
+
+    print(f"[OK] Пакет '{package_name}' успешно установлен.")
+
+
+ensure_package("httpx2")
+
+
 import ipaddress
 import logging
 import asyncio
@@ -9,13 +40,17 @@ API_URL = "https://stat.ripe.net/data/announced-prefixes/data.json"
 CONNECT_TIMEOUT = 10
 READ_TIMEOUT = 30
 
+
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     datefmt="%H:%M:%S",
 )
+
 logging.getLogger("httpx").setLevel(logging.WARNING)
 log = logging.getLogger(__name__)
+
+
 # Имя провайдера/сети -> ASN
 ASN_LIST = {
     "Scaleway": "AS12876",
@@ -119,52 +154,86 @@ ASN_LIST = {
 }
 
 
-async def fetch(client: AsyncClient, name: str, asn: str) -> tuple[set, set]:
+async def fetch(
+    client: AsyncClient,
+    name: str,
+    asn: str
+) -> tuple[set, set]:
     v4, v6 = set(), set()
 
     try:
         response = await client.get(
             API_URL,
-            params={"resource": asn, "min_peers_seeing": 1},
+            params={
+                "resource": asn,
+                "min_peers_seeing": 1,
+            },
         )
+
         response.raise_for_status()
+
         prefixes = response.json().get("data", {}).get("prefixes", [])
+
     except Exception as e:
-        log.warning("%s (%s): ошибка — %s", name, asn, e)
+        log.warning(
+            "%s (%s): ошибка — %s",
+            name,
+            asn,
+            e,
+        )
         return v4, v6
 
     for p in prefixes:
         prefix = p.get("prefix")
+
         if not prefix:
             continue
+
         try:
-            net = ipaddress.ip_network(prefix, strict=False)
+            net = ipaddress.ip_network(
+                prefix,
+                strict=False,
+            )
         except ValueError:
             continue
+
         if net.prefixlen == 0 or not net.is_global:
             continue
-        (v4 if net.version == 4 else v6).add(net)
 
-    log.info("%s (%s): %d префиксов (IPv4: %d, IPv6: %d)", name, asn, len(v4) + len(v6), len(v4), len(v6))
+        if net.version == 4:
+            v4.add(net)
+        else:
+            v6.add(net)
+
+    log.info(
+        "%s (%s): %d префиксов (IPv4: %d, IPv6: %d)",
+        name,
+        asn,
+        len(v4) + len(v6),
+        len(v4),
+        len(v6),
+    )
+
     return v4, v6
 
 
 async def fetch_all() -> tuple[set, set]:
     v4_all, v6_all = set(), set()
 
-    # Create client with retry configuration via transport
-    timeout = Timeout(CONNECT_TIMEOUT, read=READ_TIMEOUT)
+    timeout = Timeout(
+        CONNECT_TIMEOUT,
+        read=READ_TIMEOUT,
+    )
 
     async with AsyncClient(timeout=timeout) as client:
-        # Create tasks for all ASNs
         tasks = [
             fetch(client, name, asn)
             for name, asn in ASN_LIST.items()
         ]
 
-        # Process results as they complete
         for coro in asyncio.as_completed(tasks):
             v4, v6 = await coro
+
             v4_all |= v4
             v6_all |= v6
 
@@ -172,30 +241,56 @@ async def fetch_all() -> tuple[set, set]:
 
 
 def main() -> None:
-    log.info("Старт сбора для %d ASN", len(ASN_LIST))
+    log.info(
+        "Старт сбора для %d ASN",
+        len(ASN_LIST),
+    )
 
-    # Run async event loop
     v4_all, v6_all = asyncio.run(fetch_all())
 
-    # Collapse and sort IPv4 networks
+    # Collapse и сортировка IPv4
     v4_sorted = sorted(
         ipaddress.collapse_addresses(
-            sorted(v4_all, key=lambda n: (int(n.network_address), n.prefixlen))
+            sorted(
+                v4_all,
+                key=lambda n: (
+                    int(n.network_address),
+                    n.prefixlen,
+                ),
+            )
         ),
-        key=lambda n: (int(n.network_address), n.prefixlen),
+        key=lambda n: (
+            int(n.network_address),
+            n.prefixlen,
+        ),
     )
 
-    # Collapse and sort IPv6 networks
+    # Collapse и сортировка IPv6
     v6_sorted = sorted(
         ipaddress.collapse_addresses(
-            sorted(v6_all, key=lambda n: (int(n.network_address), n.prefixlen))
+            sorted(
+                v6_all,
+                key=lambda n: (
+                    int(n.network_address),
+                    n.prefixlen,
+                ),
+            )
         ),
-        key=lambda n: (int(n.network_address), n.prefixlen),
+        key=lambda n: (
+            int(n.network_address),
+            n.prefixlen,
+        ),
     )
 
-    with open("ipset-all.txt", "w", encoding="utf-8") as f:
+    with open(
+        "ipset-all.txt",
+        "w",
+        encoding="utf-8",
+    ) as f:
+
         for net in v4_sorted:
             f.write(str(net) + "\n")
+
         for net in v6_sorted:
             f.write(str(net) + "\n")
 
